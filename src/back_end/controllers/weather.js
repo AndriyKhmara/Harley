@@ -1,5 +1,5 @@
 'use strict';
-var logger = require('/Harley/dist/services/logger.js');
+//var logger = require('./services/logger.js');
 var getWeatherFromAPI = require('../services/getDataFromAPI');
 var fs = require('fs');
 
@@ -16,17 +16,18 @@ module.exports = (function () {
         }
     };
 
+
     var getMockData = function () {
-        var path = '/Harley/dist/config/data.json';
         try {
-            var result = fs.readFileSync(path, 'utf8');
+            var result = fs.readFileSync('./config/data.json', 'utf8');
             return JSON.parse(result);
         } catch (e) {
-            logger.logError("Can't read from file " + path);
+            console.log(e);
+            //logger.logError("Can't read from file " + path);
             return [];
         }
     };
-    
+
     return {
         initialize: initialize,
         getMockData: getMockData
