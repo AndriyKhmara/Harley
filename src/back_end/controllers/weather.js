@@ -1,7 +1,7 @@
 'use strict';
-// var Logger = require('../services/logger.js');
-// var logger = new Logger('./logs/log.txt', false);
+//var logger = require('./services/logger.js');
 var getWeatherFromAPI = require('../services/getDataFromAPI');
+var fs = require('fs');
 
 module.exports = (function () {
 
@@ -16,7 +16,20 @@ module.exports = (function () {
         }
     };
 
+
+    var getMockData = function () {
+        try {
+            var result = fs.readFileSync('./config/data.json', 'utf8');
+            return JSON.parse(result);
+        } catch (e) {
+            console.log(e);
+            //logger.logError("Can't read from file " + path);
+            return [];
+        }
+    };
+
     return {
-        initialize: initialize
+        initialize: initialize,
+        getMockData: getMockData
     }
 })();
