@@ -1,1 +1,434 @@
-[]
+[
+  {
+    "id": 1,
+    "temp": 12,
+    "presure": 1000,
+    "humidity": 78,
+    "windSpeed": 13,
+    "windDir": 270,
+    "clouds": 88,
+    "fallOut": "rain",
+    "sourceAPI": "openWeather",
+    "coords": {
+      "lon": 30.52,
+      "lat": 50.43
+    },
+    "date": 1478189820
+  },
+  {
+    "id": 2,
+    "temp": 11,
+    "presure": 1012,
+    "humidity": 78,
+    "windSpeed": 10,
+    "windDir": 240,
+    "clouds": 44,
+    "fallOut": "rain",
+    "sourceAPI": "openWeather",
+    "coords": {
+      "lon": 26.23,
+      "lat": 50.62
+    },
+    "date": 1478189820
+  },
+  {
+    "id": 3,
+    "temp": 15,
+    "presure": 1044,
+    "humidity": 54,
+    "windSpeed": 21,
+    "windDir": 212,
+    "clouds": 48,
+    "fallOut": "rain",
+    "sourceAPI": "openWeather",
+    "coords": {
+      "lon": 49.84,
+      "lat": 24.02
+    },
+    "date": 1478189820
+  },
+  {
+    "id": 4,
+    "temp": 11,
+    "presure": 1001,
+    "humidity": 80,
+    "windSpeed": 14,
+    "windDir": 260,
+    "clouds": 78,
+    "fallOut": "rain",
+    "sourceAPI": "darkSky",
+    "coords": {
+      "lon": 30.52,
+      "lat": 50.43
+    },
+    "date": 1478189820
+  },
+  {
+    "id": 5,
+    "temp": 10,
+    "presure": 1022,
+    "humidity": 71,
+    "windSpeed": 11,
+    "windDir": 232,
+    "clouds": 49,
+    "fallOut": "rain",
+    "sourceAPI": "darkSky",
+    "coords": {
+      "lon": 26.23,
+      "lat": 50.62
+    },
+    "date": 1478189820
+  },
+  {
+    "id": 6,
+    "temp": 17,
+    "presure": 1051,
+    "humidity": 61,
+    "windSpeed": 23,
+    "windDir": 230,
+    "clouds": 51,
+    "fallOut": "rain",
+    "sourceAPI": "darkSky",
+    "coords": {
+      "lon": 49.84,
+      "lat": 24.02
+    },
+    "date": 1478189820
+  },
+  {
+    "id": 7,
+    "temp": 14,
+    "presure": 998,
+    "humidity": 78,
+    "windSpeed": 17,
+    "windDir": 299,
+    "clouds": 76,
+    "fallOut": "rain",
+    "sourceAPI": "wunderground",
+    "coords": {
+      "lon": 30.52,
+      "lat": 50.43
+    },
+    "date": 1478189820
+  },
+  {
+    "id": 8,
+    "temp": 9,
+    "presure": 1034,
+    "humidity": 88,
+    "windSpeed": 15,
+    "windDir": 220,
+    "clouds": 51,
+    "fallOut": "rain",
+    "sourceAPI": "wunderground",
+    "coords": {
+      "lon": 26.23,
+      "lat": 50.62
+    },
+    "date": 1478189820
+  },
+  {
+    "id": 9,
+    "temp": 13,
+    "presure": 1063,
+    "humidity": 64,
+    "windSpeed": 33,
+    "windDir": 207,
+    "clouds": 33,
+    "fallOut": "rain",
+    "sourceAPI": "wunderground",
+    "coords": {
+      "lon": 49.84,
+      "lat": 24.02
+    },
+    "date": 1478189820
+  },
+  {
+    "id": 10,
+    "temp": 2,
+    "presure": 977,
+    "humidity": 77,
+    "windSpeed": 39,
+    "windDir": 183,
+    "clouds": 92,
+    "fallOut": "snow",
+    "sourceAPI": "openWeather",
+    "coords": {
+      "lon": 30.52,
+      "lat": 50.43
+    },
+    "date": 1479051180
+  },
+  {
+    "id": 11,
+    "temp": 1,
+    "presure": 953,
+    "humidity": 54,
+    "windSpeed": 43,
+    "windDir": 168,
+    "clouds": 98,
+    "fallOut": "snow",
+    "sourceAPI": "openWeather",
+    "coords": {
+      "lon": 26.23,
+      "lat": 50.62
+    },
+    "date": 1479051180
+  },
+  {
+    "id": 12,
+    "temp": 4,
+    "presure": 991,
+    "humidity": 62,
+    "windSpeed": 53,
+    "windDir": 195,
+    "clouds": 86,
+    "fallOut": "snow",
+    "sourceAPI": "openWeather",
+    "coords": {
+      "lon": 49.84,
+      "lat": 24.02
+    },
+    "date": 1479051180
+  },
+  {
+    "id": 13,
+    "temp": 4,
+    "presure": 966,
+    "humidity": 69,
+    "windSpeed": 33,
+    "windDir": 170,
+    "clouds": 88,
+    "fallOut": "snow",
+    "sourceAPI": "darkSky",
+    "coords": {
+      "lon": 30.52,
+      "lat": 50.43
+    },
+    "date": 1479051180
+  },
+  {
+    "id": 14,
+    "temp": 0,
+    "presure": 938,
+    "humidity": 44,
+    "windSpeed": 47,
+    "windDir": 152,
+    "clouds": 90,
+    "fallOut": "snow",
+    "sourceAPI": "darkSky",
+    "coords": {
+      "lon": 26.23,
+      "lat": 50.62
+    },
+    "date": 1479051180
+  },
+  {
+    "id": 15,
+    "temp": 4,
+    "presure": 1011,
+    "humidity": 58,
+    "windSpeed": 44,
+    "windDir": 187,
+    "clouds": 94,
+    "fallOut": "snow",
+    "sourceAPI": "darkSky",
+    "coords": {
+      "lon": 49.84,
+      "lat": 24.02
+    },
+    "date": 1479051180
+  },
+  {
+    "id": 16,
+    "temp": 1,
+    "presure": 999,
+    "humidity": 71,
+    "windSpeed": 32,
+    "windDir": 177,
+    "clouds": 88,
+    "fallOut": "snow",
+    "sourceAPI": "wunderground",
+    "coords": {
+      "lon": 30.52,
+      "lat": 50.43
+    },
+    "date": 1479051180
+  },
+  {
+    "id": 17,
+    "temp": 2,
+    "presure": 1021,
+    "humidity": 61,
+    "windSpeed": 53,
+    "windDir": 155,
+    "clouds": 90,
+    "fallOut": "snow",
+    "sourceAPI": "wunderground",
+    "coords": {
+      "lon": 26.23,
+      "lat": 50.62
+    },
+    "date": 1479051180
+  },
+  {
+    "id": 18,
+    "temp": 2,
+    "presure": 975,
+    "humidity": 47,
+    "windSpeed": 43,
+    "windDir": 176,
+    "clouds": 77,
+    "fallOut": "snow",
+    "sourceAPI": "wunderground",
+    "coords": {
+      "lon": 49.84,
+      "lat": 24.02
+    },
+    "date": 1479051180
+  },
+  {
+    "id": 19,
+    "temp": 8,
+    "presure": 1024,
+    "humidity": 45,
+    "windSpeed": 13,
+    "windDir": 121,
+    "clouds": 32,
+    "fallOut": "none",
+    "sourceAPI": "openWeather",
+    "coords": {
+      "lon": 30.52,
+      "lat": 50.43
+    },
+    "date": 1479635835
+  },
+  {
+    "id": 20,
+    "temp": 11,
+    "presure": 1031,
+    "humidity": 51,
+    "windSpeed": 9,
+    "windDir": 133,
+    "clouds": 29,
+    "fallOut": "none",
+    "sourceAPI": "openWeather",
+    "coords": {
+      "lon": 26.23,
+      "lat": 50.62
+    },
+    "date": 1479635835
+  },
+  {
+    "id": 21,
+    "temp": 14,
+    "presure": 1044,
+    "humidity": 42,
+    "windSpeed": 7,
+    "windDir": 199,
+    "clouds": 22,
+    "fallOut": "none",
+    "sourceAPI": "openWeather",
+    "coords": {
+      "lon": 49.84,
+      "lat": 24.02
+    },
+    "date": 1479635835
+  },
+  {
+    "id": 22,
+    "temp": 6,
+    "presure": 1011,
+    "humidity": 44,
+    "windSpeed": 11,
+    "windDir": 111,
+    "clouds": 29,
+    "fallOut": "none",
+    "sourceAPI": "darkSky",
+    "coords": {
+      "lon": 30.52,
+      "lat": 50.43
+    },
+    "date": 1479635835
+  },
+  {
+    "id": 23,
+    "temp": 8,
+    "presure": 1046,
+    "humidity": 48,
+    "windSpeed": 3,
+    "windDir": 107,
+    "clouds": 26,
+    "fallOut": "none",
+    "sourceAPI": "darkSky",
+    "coords": {
+      "lon": 26.23,
+      "lat": 50.62
+    },
+    "date": 1479635835
+  },
+  {
+    "id": 24,
+    "temp": 12,
+    "presure": 1059,
+    "humidity": 51,
+    "windSpeed": 11,
+    "windDir": 144,
+    "clouds": 28,
+    "fallOut": "none",
+    "sourceAPI": "darkSky",
+    "coords": {
+      "lon": 49.84,
+      "lat": 24.02
+    },
+    "date": 1479635835
+  },
+  {
+    "id": 25,
+    "temp": 7,
+    "presure": 1014,
+    "humidity": 36,
+    "windSpeed": 11,
+    "windDir": 128,
+    "clouds": 39,
+    "fallOut": "none",
+    "sourceAPI": "wunderground",
+    "coords": {
+      "lon": 30.52,
+      "lat": 50.43
+    },
+    "date": 1479635835
+  },
+  {
+    "id": 26,
+    "temp": 12,
+    "presure": 1042,
+    "humidity": 49,
+    "windSpeed": 6,
+    "windDir": 122,
+    "clouds": 32,
+    "fallOut": "none",
+    "sourceAPI": "wunderground",
+    "coords": {
+      "lon": 26.23,
+      "lat": 50.62
+    },
+    "date": 1479635835
+  },
+  {
+    "id": 27,
+    "temp": 11,
+    "presure": 1053,
+    "humidity": 45,
+    "windSpeed": 8,
+    "windDir": 187,
+    "clouds": 36,
+    "fallOut": "none",
+    "sourceAPI": "wunderground",
+    "coords": {
+      "lon": 49.84,
+      "lat": 24.02
+    },
+    "date": 1479635835
+  }
+]

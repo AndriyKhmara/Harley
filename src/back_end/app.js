@@ -14,6 +14,10 @@ app.use(express.static('public'));
 
 weather.initialize();
 
+app.get('/weather/v01/getWeather', function (req, res) {
+    res.send(weather.getMockData());
+});
+
 http.createServer(app).listen(3000, function () {
     console.log('App listening on port 3000!');
 });

@@ -1,10 +1,9 @@
 'use strict';
 var request = require('request'),
-    config = require('../config/config'),
+    config = require('../config/config.js'),
     MongoClient = require('mongodb').MongoClient,
-    urlDB = 'mongodb://localhost:27017/weatherProject';
-// var Logger = require('logger.js');
-// var logger = new Logger('./logs/log.txt', false);
+    urlDB = 'mongodb://localhost:27017/weatherProject',
+    logger = require('./logger.js');
 
 
 module.exports = (function () {
@@ -38,7 +37,8 @@ module.exports = (function () {
             {
                 MongoClient.connect(urlDB, function (error, db) {
                     if (error) {
-                        logger.logError(error);
+                        //logger.logError(error);
+                        console.log(error);
                     }
                     var collection = db.collection('openWeather');
                     collection.insertOne(data, function (error, result) {
@@ -56,7 +56,8 @@ module.exports = (function () {
             {
                 MongoClient.connect(urlDB, function (error, db) {
                     if (error) {
-                        logger.logError(error);
+                        //logger.logError(error);
+                        console.log(error);
                     }
                     var collection = db.collection('wunderground');
                     collection.insertOne(data, function (error, result) {
@@ -74,7 +75,8 @@ module.exports = (function () {
             {
                 MongoClient.connect(urlDB, function (error, db) {
                     if (error) {
-                        logger.logError(error);
+                        //logger.logError(error);
+                        console.log(error);
                     }var collection = db.collection('darkSky');
                     collection.insertOne(data, function (error, result) {
                         if (error) {
