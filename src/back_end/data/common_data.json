@@ -146,10 +146,10 @@
     "clouds": null,
     "fallOut": "none",
     "sourceAPI": "wunderground",
-    "coords": {
-      "lon": 30.56999969,
-      "lat": 50.40000153
-    },
-    "date": 1479418134
-  }
+"coords": {
+"lon": 30.56999969,
+"lat": 50.40000153
+},
+"date": 1479418134
+}
 ]

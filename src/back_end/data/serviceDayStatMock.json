@@ -1,0 +1,233 @@
+[
+  {
+    "_id" : "5843243995ffc315ec40dd90",
+    "time" : 1480788363,
+    "service" : "openWeather",
+    "stat" : [
+      {
+        "minTemp" : {
+          "temp" : -4.42,
+          "cords" : {
+            "lon" : 25.34,
+            "lat" : 50.76
+          }
+        }
+      },
+      {
+        "maxTemp" : {
+          "temp" : -2.36,
+          "cords" : {
+            "lon" : 30.52,
+            "lat" : 50.43
+          }
+        }
+      },
+      {
+        "minHum" : {
+          "hum" : 84,
+          "cords" : {
+            "lon" : 25.34,
+            "lat" : 50.76
+          }
+        }
+      },
+      {
+        "maxHum" : {
+          "hum" : 92,
+          "cords" : {
+            "lon" : 30.52,
+            "lat" : 50.43
+          }
+        }
+      },
+      {
+        "minWindSpeed" : {
+          "windSpeed" : 17.86,
+          "cords" : {
+            "lon" : 25.34,
+            "lat" : 50.76
+          }
+        }
+      },
+      {
+        "maxWindSpeed" : {
+          "windSpeed" : 20.74,
+          "source" : "openWeather",
+          "cords" : {
+            "lon" : 26.23,
+            "lat" : 50.62
+          }
+        }
+      },
+      {
+        "avgTemp" : {
+          "temp" : -3.69533333333333
+        }
+      },
+      {
+        "avgHum" : {
+          "hum" : 88.3333333333333
+        }
+      },
+      {
+        "avgWindSpeed" : {
+          "windSpeed" : 18.8666666666667
+        }
+      }
+    ]
+  },
+  {
+    "_id" : "5843243995ffc315ec40dd91",
+    "time" : 1480788552,
+    "service" : "darkSky",
+    "stat" : [
+      {
+        "minTemp" : {
+          "temp" : -4.03,
+          "cords" : {
+            "lon" : 26.24,
+            "lat" : 50.63
+          }
+        }
+      },
+      {
+        "maxTemp" : {
+          "temp" : -2.79,
+          "cords" : {
+            "lon" : 30.5,
+            "lat" : 50.43
+          }
+        }
+      },
+      {
+        "minHum" : {
+          "hum" : 77,
+          "cords" : {
+            "lon" : 25.26,
+            "lat" : 50.74
+          }
+        }
+      },
+      {
+        "maxHum" : {
+          "hum" : 96,
+          "cords" : {
+            "lon" : 30.5,
+            "lat" : 50.43
+          }
+        }
+      },
+      {
+        "minWindSpeed" : {
+          "windSpeed" : 10.75,
+          "cords" : {
+            "lon" : 30.5,
+            "lat" : 50.43
+          }
+        }
+      },
+      {
+        "maxWindSpeed" : {
+          "windSpeed" : 16.29,
+          "source" : "darkSky",
+          "cords" : {
+            "lon" : 25.26,
+            "lat" : 50.74
+          }
+        }
+      },
+      {
+        "avgTemp" : {
+          "temp" : -3.40333333333333
+        }
+      },
+      {
+        "avgHum" : {
+          "hum" : 87.6
+        }
+      },
+      {
+        "avgWindSpeed" : {
+          "windSpeed" : 13.9273333333333
+        }
+      }
+    ]
+  },
+  {
+    "_id" : "5843243995ffc315ec40dd92",
+    "time" : 1480788552,
+    "service" : "wunderground",
+    "stat" : [
+      {
+        "minTemp" : {
+          "temp" : -2,
+          "cords" : {
+            "lon" : 25.5,
+            "lat" : 50.70000076
+          }
+        }
+      },
+      {
+        "maxTemp" : {
+          "temp" : -1.2,
+          "cords" : {
+            "lon" : 23.81999969,
+            "lat" : 51.24000168
+          }
+        }
+      },
+      {
+        "minHum" : {
+          "hum" : 74,
+          "cords" : {
+            "lon" : 25.5,
+            "lat" : 50.70000076
+          }
+        }
+      },
+      {
+        "maxHum" : {
+          "hum" : 95,
+          "cords" : {
+            "lon" : 30.56999969,
+            "lat" : 50.40000153
+          }
+        }
+      },
+      {
+        "minWindSpeed" : {
+          "windSpeed" : 0,
+          "cords" : {
+            "lon" : 25.5,
+            "lat" : 50.70000076
+          }
+        }
+      },
+      {
+        "maxWindSpeed" : {
+          "windSpeed" : 14.5,
+          "source" : "wunderground",
+          "cords" : {
+            "lon" : 23.81999969,
+            "lat" : 51.24000168
+          }
+        }
+      },
+      {
+        "avgTemp" : {
+          "temp" : -1.83333333333333
+        }
+      },
+      {
+        "avgHum" : {
+          "hum" : 86.2
+        }
+      },
+      {
+        "avgWindSpeed" : {
+          "windSpeed" : 3.21333333333333
+        }
+      }
+    ]
+  }
+]
