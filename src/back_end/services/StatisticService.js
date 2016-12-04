@@ -1,3 +1,4 @@
+/*jslint nomen: true */
 'use strict';
 var config              = require('../config/config.js'),
     dataBaseService     = require('../services/DataBaseService'),
@@ -115,128 +116,125 @@ module.exports = (function () {
                         }
                     }]
                 };
-              
                 dataBaseService.setDataToDB(urlStatisticsDataDB, 'City_Day_Statistics', result);
             }, function (err) {
-                console.error('Data is not collected!\n', err, err.stack);
                 logger.logError(err);
             });
         });
     },
-     cityMonthStatistics = function (serchTime) {
-         var start = new Date(serchTime.getFullYear(), serchTime.getMonth(), 1),
-             end = new Date(serchTime.getFullYear(), serchTime.getMonth() + 1, 0),
-            cities = [];
-        start.setHours(0, 0, 0, 0);
-        end.setHours(23, 59, 59, 999);
-        _.each(config.getCitiesURLs(), function (city) {
-            cities.push(city.city);
-        });
+        cityMonthStatistics = function (serchTime) {
+            var start = new Date(serchTime.getFullYear(), serchTime.getMonth(), 1),
+                end = new Date(serchTime.getFullYear(), serchTime.getMonth() + 1, 0),
+                cities = [];
+            start.setHours(0, 0, 0, 0);
+            end.setHours(23, 59, 59, 999);
+            _.each(config.getCitiesURLs(), function (city) {
+                cities.push(city.city);
+            });
 
-        _.each(_.uniq(cities), function (cityName) {
-            dataBaseService.getStatisticsOnCities(urlWeatherDataDB, 'unifiedWeather',
-                parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName).then(function (dataArr) {
-                console.info('Data services successfully collected!');
-                var lowestTempObj = {},
-                    highesTempObj = {},
-                    lowestHumObj = {},
-                    highesHumObj = {},
-                    lowestWindSpeedObj = {},
-                    highesWindSpeedObj = {},
-                    result = {},
-                    avgTempVal = 0,
-                    avgHumVal = 0,
-                    avgWindSpeedVal = 0,
-                    lowestTemp = Number.POSITIVE_INFINITY,
-                    lowestHum = Number.POSITIVE_INFINITY,
-                    lowestWindSpeed = Number.POSITIVE_INFINITY,
-                    highestTemp = Number.NEGATIVE_INFINITY,
-                    highestHum = Number.NEGATIVE_INFINITY,
-                    highestWindSpeed = Number.NEGATIVE_INFINITY;
+            _.each(_.uniq(cities), function (cityName) {
+                dataBaseService.getStatisticsOnCities(urlWeatherDataDB, 'unifiedWeather',
+                    parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName).then(function (dataArr) {
+                    console.info('Data services successfully collected!');
+                    var lowestTempObj = {},
+                        highesTempObj = {},
+                        lowestHumObj = {},
+                        highesHumObj = {},
+                        lowestWindSpeedObj = {},
+                        highesWindSpeedObj = {},
+                        result = {},
+                        avgTempVal = 0,
+                        avgHumVal = 0,
+                        avgWindSpeedVal = 0,
+                        lowestTemp = Number.POSITIVE_INFINITY,
+                        lowestHum = Number.POSITIVE_INFINITY,
+                        lowestWindSpeed = Number.POSITIVE_INFINITY,
+                        highestTemp = Number.NEGATIVE_INFINITY,
+                        highestHum = Number.NEGATIVE_INFINITY,
+                        highestWindSpeed = Number.NEGATIVE_INFINITY;
 
-                _.each(dataArr, function (data) {
-                    avgTempVal += data.temp;
-                    avgHumVal += data.humidity;
-                    avgWindSpeedVal += data.windSpeed;
-                    if (data.temp < lowestTemp) {
-                        lowestTemp = data.temp;
-                        lowestTempObj = {
-                            'temp': data.temp,
-                            'date': data.date
-                        };
-                    }
-                    if (data.temp > highestTemp) {
-                        highestTemp = data.temp;
-                        highesTempObj = {
-                            'temp': data.temp,
-                            'date': data.date
-                        };
-                    }
-                    if (data.humidity < lowestHum) {
-                        lowestHum = data.humidity;
-                        lowestHumObj = {
-                            'hum': data.humidity,
-                            'date': data.date
-                        };
-                    }
-                    if (data.humidity > highestHum) {
-                        highestHum = data.humidity;
-                        highesHumObj = {
-                            'hum': data.humidity,
-                            'date': data.date
-                        };
-                    }
-                    if (data.windSpeed < lowestWindSpeed) {
-                        lowestWindSpeed = data.windSpeed;
-                        lowestWindSpeedObj = {
-                            'windSpeed': data.windSpeed,
-                            'date': data.date
-                        };
-                    }
-                    if (data.windSpeed > highestWindSpeed) {
-                        highestWindSpeed = data.windSpeed;
-                        highesWindSpeedObj = {
-                            'windSpeed': data.windSpeed,
-                            'date': data.date
-                        };
-                    }
+                    _.each(dataArr, function (data) {
+                        avgTempVal += data.temp;
+                        avgHumVal += data.humidity;
+                        avgWindSpeedVal += data.windSpeed;
+                        if (data.temp < lowestTemp) {
+                            lowestTemp = data.temp;
+                            lowestTempObj = {
+                                'temp': data.temp,
+                                'date': data.date
+                            };
+                        }
+                        if (data.temp > highestTemp) {
+                            highestTemp = data.temp;
+                            highesTempObj = {
+                                'temp': data.temp,
+                                'date': data.date
+                            };
+                        }
+                        if (data.humidity < lowestHum) {
+                            lowestHum = data.humidity;
+                            lowestHumObj = {
+                                'hum': data.humidity,
+                                'date': data.date
+                            };
+                        }
+                        if (data.humidity > highestHum) {
+                            highestHum = data.humidity;
+                            highesHumObj = {
+                                'hum': data.humidity,
+                                'date': data.date
+                            };
+                        }
+                        if (data.windSpeed < lowestWindSpeed) {
+                            lowestWindSpeed = data.windSpeed;
+                            lowestWindSpeedObj = {
+                                'windSpeed': data.windSpeed,
+                                'date': data.date
+                            };
+                        }
+                        if (data.windSpeed > highestWindSpeed) {
+                            highestWindSpeed = data.windSpeed;
+                            highesWindSpeedObj = {
+                                'windSpeed': data.windSpeed,
+                                'date': data.date
+                            };
+                        }
+                    });
+                    result = {
+                        'time': dataArr[0].date,
+                        'city' : cityName,
+                        'stat': [{
+                            'minTemp': lowestTempObj
+                        }, {
+                            'maxTemp': highesTempObj
+                        }, {
+                            'minHum': lowestHumObj
+                        }, {
+                            'maxHum': highesHumObj
+                        }, {
+                            'minWindSpeed': lowestWindSpeedObj
+                        }, {
+                            'maxWindSpeed': highesWindSpeedObj
+                        }, {
+                            'avgTemp': {
+                                'temp': avgTempVal / dataArr.length
+                            }
+                        }, {
+                            'avgHum': {
+                                'hum': avgHumVal / dataArr.length
+                            }
+                        }, {
+                            'avgWindSpeed': {
+                                'windSpeed': avgWindSpeedVal / dataArr.length
+                            }
+                        }]
+                    };
+                    dataBaseService.setDataToDB(urlStatisticsDataDB, 'City_Month_Statistics', result);
+                }, function (err) {
+                    logger.logError(err);
                 });
-                result = {
-                    'time': dataArr[0].date,
-                    'city' : cityName,
-                    'stat': [{
-                        'minTemp': lowestTempObj
-                    }, {
-                        'maxTemp': highesTempObj
-                    }, {
-                        'minHum': lowestHumObj
-                    }, {
-                        'maxHum': highesHumObj
-                    }, {
-                        'minWindSpeed': lowestWindSpeedObj
-                    }, {
-                        'maxWindSpeed': highesWindSpeedObj
-                    }, {
-                        'avgTemp': {
-                            'temp': avgTempVal / dataArr.length
-                        }
-                    }, {
-                        'avgHum': {
-                            'hum': avgHumVal / dataArr.length
-                        }
-                    }, {
-                        'avgWindSpeed': {
-                            'windSpeed': avgWindSpeedVal / dataArr.length
-                        }
-                    }]
-                };
-                dataBaseService.setDataToDB(urlStatisticsDataDB, 'City_Month_Statistics', result);
-            }, function (err) {
-                console.error('Data is not collected!\n', err, err.stack);
-                logger.logError(err);
             });
-        });
-    },
+        },
 
         serviceDayStatistics = function (serchTime) {
             var start = new Date(serchTime.getTime()),
@@ -343,11 +341,8 @@ module.exports = (function () {
                             }
                         }]
                     };
-                    console.log("result");
-                    console.log(result);
                     dataBaseService.setDataToDB(urlStatisticsDataDB, 'Service_Day_Statistics', result);
                 }, function (err) {
-                    console.error('Data is not collected!\n', err, err.stack);
                     logger.logError(err);
                 });
             });
@@ -381,9 +376,6 @@ module.exports = (function () {
                         highestWindSpeed = Number.NEGATIVE_INFINITY;
 
                     _.each(dataArr, function (data) {
-                        console.log('------------');
-                        console.log(data);
-                        console.log('------------');
                         avgTempVal += data.temp;
                         avgHumVal += data.humidity;
                         avgWindSpeedVal += data.windSpeed;
@@ -462,7 +454,6 @@ module.exports = (function () {
                     };
                     dataBaseService.setDataToDB(urlStatisticsDataDB, 'Service_Month_Statistics', result);
                 }, function (err) {
-                    console.error('Data is not collected!\n', err, err.stack);
                     logger.logError(err);
                 });
             });
@@ -474,4 +465,4 @@ module.exports = (function () {
         cityDayStatistics: cityDayStatistics,
         cityMonthStatistics: cityMonthStatistics
     };
-})();
+}());
