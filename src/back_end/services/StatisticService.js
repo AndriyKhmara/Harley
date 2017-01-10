@@ -67,53 +67,45 @@ module.exports = (function () {
         },
         result = function (dataArr, cityName, serviceName) {
             var output,
-                obj1 = {
+                citiesAndServices = {
                     time: dataArr[0].date,
                     city : cityName,
                     service : serviceName
                 },
-                obj2 = {
+                onlyCities = {
                     time: dataArr[0].date,
                     city : cityName
                 },
-                obj3 = {
+                onlyServices = {
                     time: dataArr[0].date,
                     service : serviceName
                 },
-                obj4 = [{
-                    minTemp: minValue(set.variables.temp, dataArr)
-                }, {
-                    maxTemp: maxValue(set.variables.temp, dataArr)
-                }, {
-                    minHum: minValue(set.variables.humidity, dataArr)
-                }, {
-                    maxHum: maxValue(set.variables.humidity, dataArr)
-                }, {
-                    minWindSpeed: minValue(set.variables.windSpeed, dataArr)
-                }, {
-                    maxWindSpeed: maxValue(set.variables.windSpeed, dataArr)
-                }, {
-                    avgTemp: {
-                        temp: avgValue(set.variables.temp, dataArr)
+                commonPart = {
+                    temp: {
+                        min: minValue(set.variables.temp, dataArr),
+                        max: maxValue(set.variables.temp, dataArr),
+                        avg: avgValue(set.variables.temp, dataArr)
+                    },
+                    hum: {
+                        min: minValue(set.variables.humidity, dataArr),
+                        max: maxValue(set.variables.humidity, dataArr),
+                        avg: avgValue(set.variables.humidity, dataArr)
+                    },
+                    windSpeed: {
+                        min: minValue(set.variables.windSpeed, dataArr),
+                        max: maxValue(set.variables.windSpeed, dataArr),
+                        avg: avgValue(set.variables.windSpeed, dataArr)
                     }
-                }, {
-                    avgHum: {
-                        hum: avgValue(set.variables.humidity, dataArr)
-                    }
-                }, {
-                    avgWindSpeed: {
-                        windSpeed: avgValue(set.variables.windSpeed, dataArr)
-                    }
-                }];
+                };
             if (cityName !== 0 && serviceName !== 0) {
-                obj1.stat = obj4;
-                output = obj1;
+                citiesAndServices.stat = commonPart;
+                output = citiesAndServices;
             } else if (serviceName === 0 && cityName !== 0) {
-                obj2.stat = obj4;
-                output = obj2;
+                onlyCities.stat = commonPart;
+                output = onlyCities;
             } else if (serviceName !== 0 && cityName === 0) {
-                obj3.stat = obj4;
-                output = obj3;
+                onlyServices.stat = commonPart;
+                output = onlyServices;
             }
             return output;
         },
@@ -122,15 +114,14 @@ module.exports = (function () {
             var dayStart    = new Date(),
                 dayEnd      = new Date();
             switch (timePeriodNeeded) {
-                case "day": {
-                    dayStart    = new Date(searchTime.getTime());
-                    dayEnd      = new Date(searchTime.getTime());
-                }
+            case "day":
+                dayStart    = new Date(searchTime.getTime());
+                dayEnd      = new Date(searchTime.getTime());
+
                 break;
-                case "month": {
-                    dayStart = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1);
-                    dayEnd = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0);
-                }
+            case "month":
+                dayStart = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1);
+                dayEnd = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0);
                 break;
             }
             dayStart.setHours(set.dayStart.hour, set.dayStart.mins, set.dayStart.sec, set.dayStart.mSec);
