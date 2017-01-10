@@ -1,3 +1,4 @@
+/*jslint nomen: true*/
 'use strict';
 var settingsPath = './config/settings.json',
     configPath  = './config/config.json',
@@ -23,9 +24,8 @@ module.exports = (function () {
                     JSON.stringify(data),
                     { flag: 'w+' }
                 );
-            } catch(e) {
-                logger.logError(set.messages.fs.cantWriteToFile +
-                    JSON.stringify(record));
+            } catch (e) {
+                logger.logError(set.messages.fs.cantWriteToFile + data);
                 return false;
             }
             return true;
@@ -42,27 +42,27 @@ module.exports = (function () {
                 }
                 _.each(config.services, function (service) {
                     switch (service.name) {
-                        case "openWeather":
-                            configsAPI_URLs.push({
-                                name: service.name,
-                                city: cityName,
-                                url: service.urlPart1 + cityName + service.urlPart2
-                            });
-                            break;
-                        case "wunderground":
-                            configsAPI_URLs.push({
-                                name: service.name,
-                                city: cityName,
-                                url: service.urlPart1 + cityName + service.urlPart2
-                            });
-                            break;
-                        case "darkSky":
-                            configsAPI_URLs.push({
-                                name: service.name,
-                                city: cityName,
-                                url: service.urlPart1 +  + city.xCords.toFixed(2) + ',' + city.yCords.toFixed(2)
-                            });
-                            break;
+                    case "openWeather":
+                        configsAPI_URLs.push({
+                            name: service.name,
+                            city: cityName,
+                            url: service.urlPart1 + cityName + service.urlPart2
+                        });
+                        break;
+                    case "wunderground":
+                        configsAPI_URLs.push({
+                            name: service.name,
+                            city: cityName,
+                            url: service.urlPart1 + cityName + service.urlPart2
+                        });
+                        break;
+                    case "darkSky":
+                        configsAPI_URLs.push({
+                            name: service.name,
+                            city: cityName,
+                            url: service.urlPart1  + city.xCords.toFixed(2) + ',' + city.yCords.toFixed(2)
+                        });
+                        break;
                     }
                 });
             });
@@ -82,7 +82,7 @@ module.exports = (function () {
         updateSettings = function (fieldName, data) {
             var settings = readData(settingsPath);
             _.each(settings, function (setField) {
-                if (fieldName == setField) {
+                if (fieldName === setField) {
                     settings[fieldName] = data;
                 }
             });

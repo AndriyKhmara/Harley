@@ -23,7 +23,7 @@ module.exports = (function () {
             });
         },
         getWeatherData = function () {
-            var date = parseInt((new Date()).getTime() / 1000);
+            var date = parseInt((new Date()).getTime() / set.variables.mSecToSec, set.variables.decimal);
             config.updateSettings("lastWeatherUpdateTime", date);
             // var citiesURLs = config.getCitiesURLs(),
             //     data = [];

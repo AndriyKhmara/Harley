@@ -6,24 +6,24 @@ var getWeatherFromAPI   = require('./../services/getDataFromAPI'),
 
 module.exports = (function () {
     var date = new Date(),
-        initialize = function () {
-            dayTask.start();
-            monthTask.start();
-            everyFourHourTask.start();
-        },
-        dayTask = cron.schedule(set.cronTask.everyDay, function(){
+        dayTask = cron.schedule(set.cronTask.everyDay, function () {
             statisticsService.serviceDayStatistics(date);
             statisticsService.cityDayStatistics(date);
             statisticsService.serviceDayStatisticByCity(date);
         }, false),
-        monthTask = cron.schedule(set.cronTask.everyMonth, function(){
+        monthTask = cron.schedule(set.cronTask.everyMonth, function () {
             statisticsService.serviceMonthStatistics(date);
             statisticsService.cityMonthStatistics(date);
             statisticsService.serviceMonthStatisticByCity(date);
         }, false),
-        everyFourHourTask = cron.schedule(set.cronTask.everyFourHours, function(){
+        everyFourHourTask = cron.schedule(set.cronTask.everyFourHours, function () {
             getWeatherFromAPI.getWeatherData();
-        }, false);
+        }, false),
+        initialize = function () {
+            dayTask.start();
+            monthTask.start();
+            everyFourHourTask.start();
+        };
 
     return {
         initialize: initialize

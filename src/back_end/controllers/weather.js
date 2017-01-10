@@ -1,3 +1,4 @@
+/*jslint nomen: true */
 'use strict';
 var logger              = require('./../services/logger.js'),
     getWeatherFromAPI   = require('./../services/getDataFromAPI'),
@@ -6,6 +7,7 @@ var logger              = require('./../services/logger.js'),
     pathToDBs           = require('./../config/pathConfig.json'),
     set                 = require('./../config/settings.json'),
     config              = require('./../services/ConfigService.js'),
+    _                   = require('lodash'),
     fs                  = require('fs');
 
 module.exports = (function () {
@@ -45,14 +47,14 @@ module.exports = (function () {
      *
      */
         getCurrentWeather = function () {
-            var count = config.countFields();
-            var result = dataBaseService.getLastRecords(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, count).then(function (items) {
-                console.info('The current weather data from DB returned successfully!');
-                return items;
-            }, function (err) {
-                logger.logError(err);
-                return readData('./data/common_data.json');
-            });
+            var count = config.countFields(),
+                result = dataBaseService.getLastRecords(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, count).then(function (items) {
+                    console.info('The current weather data from DB returned successfully!');
+                    return items;
+                }, function (err) {
+                    logger.logError(err);
+                    return readData('./data/common_data.json');
+                });
             return result;
         },
     /**
@@ -106,7 +108,7 @@ module.exports = (function () {
                 var path = './data/serviceDayStatByCities.json';
                 return readData(path);
             });
-            _.each(data, function(){
+            _.each(data, function () {
 
             });
             return result;
