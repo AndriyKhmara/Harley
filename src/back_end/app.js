@@ -1,17 +1,45 @@
 /*jslint unparam: true*/
 'use strict';
-var http        = require('http'),
-    express     = require('express'),
-    bodyParser  = require("body-parser"),
-    app         = express(),
-    logger      = require('./services/logger'),
+var http              = require('http'),
+    express           = require('express'),
+    bodyParser        = require("body-parser"),
+    passport          = require('passport'),
+    session           = require('express-session'),
+    logger            = require('./services/logger'),
     configService     = require('./services/ConfigService'),
+    user              = require('./services/userService'),
     weatherController = require('./controllers/weather');
 
+//Init App
+var app = express();
 
+// BodyParsers
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+// Init static folder
 app.use(express.static('public'));
+
+// Init Session
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+}));
+
+// TODO: install express validator https://www.npmjs.com/package/express-validator
+
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
 
 // route to mock data with services statistics per day
 app.get('/weather/v01/stat/service/day', function (req, res) {
@@ -64,6 +92,18 @@ app.get('/weather/v01/configs', function (req, res) {
     res.send(configService.getTotalConfig());
 });
 
-http.createServer(app).listen(3000, function () {
-    console.log('App listening on port 3000!');
+app.post('/login', user.login);
+app.post('/register', user.register);
+app.get('/logout', user.logout);
+
+
+app.get('/users', function (req, res) {
+    res.send('hello ' + req.session.passport.user.username + '<br/><a href="/logout">Logout</a>');
+});
+
+// Setting a port
+app.set('port', (process.env.PORT || 3000));
+
+http.createServer(app).listen(app.get('port'), function () {
+    console.log('App listening on port '+ app.get('port') +'!');
 });
