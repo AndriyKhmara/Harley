@@ -145,7 +145,9 @@ module.exports = (function () {
                     dataBaseService.getServiceStatisticsByCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                         time.dayStart, time.dayEnd, cityName, serviceName).then(function (dataArr) {
                         logger.logInfo("Data services successfully collected!");
+
                         dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, getResultData(dataArr, cityName, serviceName));
+
                     }, function (err) {
                         logger.logError(err);
                     });
@@ -164,7 +166,9 @@ module.exports = (function () {
                     dataBaseService.getServiceStatisticsByCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                         time.dayStart, time.dayEnd, cityName, serviceName).then(function (dataArr) {
                         logger.logInfo("Data services successfully collected!");
+
                         dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatisticsByCity, getResultData(dataArr, cityName, serviceName));
+
                     }, function (err) {
                         logger.logError(err);
                     });
@@ -183,7 +187,9 @@ module.exports = (function () {
                 dataBaseService.getStatisticsOnCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     time.dayStart, time.dayEnd, cityName).then(function (dataArr) {
                     logger.logInfo("Data services successfully collected!");
+
                     dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityDayStatistics, getResultData(dataArr, cityName, service));
+
                 }, function (err) {
                     logger.logError(err);
                 });
@@ -200,7 +206,9 @@ module.exports = (function () {
                 dataBaseService.getStatisticsOnCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     time.dayStart, time.dayEnd, cityName).then(function (dataArr) {
                     logger.logInfo("Data services successfully collected!");
+
                     dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, getResultData(dataArr, cityName, service));
+
                 }, function (err) {
                     logger.logError(err);
                 });
@@ -213,7 +221,9 @@ module.exports = (function () {
                 dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     time.dayStart, time.dayEnd, service).then(function (dataArr) {
                     logger.logInfo("Data services successfully collected!");
+
                     var res = getResultData(dataArr, cityName, service);
+
                     dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics, res);
                 }, function (err) {
                     logger.logError(err);
@@ -227,7 +237,9 @@ module.exports = (function () {
                 dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     time.dayStart, time.dayEnd, service).then(function (dataArr) {
                     logger.logInfo("Data services successfully collected!");
+
                     dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatistics, getResultData(dataArr, cityName, service));
+
                 }, function (err) {
                     logger.logError(err);
                 });

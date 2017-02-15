@@ -13,6 +13,7 @@ let state = {
 
 
 export default class LeafletMap extends React.Component {
+
     constructor() {
         super();
 
@@ -75,6 +76,7 @@ export default class LeafletMap extends React.Component {
     }
 
     render () {
+        console.log('leaflet props === ',this.props);
         const position = [state.lat, state.lng];
         return (
             <Map
@@ -88,7 +90,9 @@ export default class LeafletMap extends React.Component {
                 { this.state.points.map((point, index) => {
                     return (
                         <Marker
+
                             key={"point" + index}
+
                             position={point.position}
                         >
                             <Popup>
