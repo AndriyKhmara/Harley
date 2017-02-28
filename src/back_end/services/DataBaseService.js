@@ -1,5 +1,8 @@
-var MongoClient = require("mongodb").MongoClient,
-    logger = require("./logger.js");
+
+/*jslint unparam: true*/
+'use strict';
+var MongoClient = require('mongodb').MongoClient,
+    logger      = require('./logger.js');
 module.exports = (function () {
     "use strict";
     var getLastRecords = function (url, collectionName, count) {

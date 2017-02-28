@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 v.1.0.0
 =======
 Released: 
@@ -24,8 +23,6 @@ Released: 1/22/2017
 - fixed errors in lint/back-end
 - update mongo DB dump
 
-==============================
->>>>>>> 247a3cdc25a7fc7ecee29728794fd145972f7a87
 
 Released: 1/21/2017
 
