@@ -1,8 +1,15 @@
+v.2.0.0
+=======
+Released: 11.03.2017 
+
+Introduces new platform for frontent ui - Angular v1.x
+-----------------------------------------
+
 v.1.0.0
 =======
 Released: 
 
-Introduces new platform for frontent ui
+Introduces new platform for frontent ui - React
 -----------------------------------------
 
 v.0.0.1
