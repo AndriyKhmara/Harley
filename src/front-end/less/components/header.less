@@ -1,62 +1,89 @@
-@import "variables";
+@import "../variables";
+
 header{
-  .nav {
-    background: @mainBGcolor;
-    font-size: 32px;
-    .logo {
-      font-family: "Roboto-Regular";
-      color: @mainTextColor;
+  position: fixed;
+  z-index: 1;
+  top:0;
+  width:100%;
+  padding:10px 15px;
+  height: 63px;
+  background: #1565c0;
+  .side-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100vh;
+    padding: 10px 0;
+    background: @secondaryBGcolor;
+    border-left:2px solid #000;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    overflow: hidden;
+    transition: all 300ms;
+    z-index: 9999;
+    &.open {
+      width: 300px;
+      padding-left:15px;
+      padding-right:15px;
+    }
+    .close-btn {
       float: left;
-      font-weight: 700;
+      font-size: 20px;
+      color: #000;
       padding: 15px;
-      text-transform: uppercase;
-      font-size: 32px;
-      &:hover {
-        color: @linkHoverColor;
+    }
+    h2 {
+      padding: 0 15px;
+    }
+    ul {
+      li {
+        list-style: none;
       }
     }
-    a.burger {
-      position: fixed;
-      top: 24px;
-      right: 15px;
-      cursor: pointer;
-      padding: 12px 0;
-      float: right;
-      z-index: 1000;
-      span {
-        position: relative;
-        display: block;
-        width: 30px;
-        height: 4px;
-        background: #fff;
-        transition: all .2s ease-in-out;
-        &:before, &:after {
-          position: absolute;
-          background: #fff;
-          content: '';
-          width: 30px;
-          height: 4px;
-          transition: all .2s ease-in-out;
-        }
-        &:before {
-          top: -8px;
-        }
-        &:after {
-          top: 8px;
-        }
+    label {
+      width: 100%;
+    }
+    .form-control {
+      width: 90%!important;
+    }
+    .uib-datepicker-popup {
+      left: -9px!important;
+    }
+    .select-params {
+      label {
+        width: 100%;
+        padding-left: 10px;
+        font-weight: normal;
       }
     }
-    a.burger.active {
-      right: 315px;
-      span {
-        background: transparent;
-        &:before {
-          transform: rotate(45deg) translate(5px, 6px);
-        }
-        &:after {
-          transform: rotate(-45deg) translate(5px, -6px);
-        }
+    .city-select {
+      margin-left: 10px;
+    }
+  }
+  .params{
+    label{
+      display: block;
+      margin: 10px 0;
+      text-align: left;
+      &.radio{
+        padding-left: 25px;
+        font-weight: normal;
       }
     }
   }
+
+  select[name="repeatSelect"]{
+    display: block;
+    width:100%;
+    padding:3px 6px;
+  }
+  label[for="repeatSelect"]{
+    display: block;
+    text-align: left;
+  }
 }
+
+
+
+
