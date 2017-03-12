@@ -1,14 +1,16 @@
-var gulp            = require('gulp'),
-    eslint          = require('gulp-eslint'),
-    fs              = require('fs'),
-    less            = require('gulp-less'),
-    autoprefixer    = require('gulp-autoprefixer'),
-    sourcemaps      = require('gulp-sourcemaps'),
-    cleanCSS        = require('gulp-clean-css'),
-    uglify          = require('gulp-uglify'),
-    concat          = require('gulp-concat'),
-    concatCss       = require('gulp-concat-css'),
-    watch           = require('gulp-watch');
+var gulp = require('gulp'),
+    eslint = require('gulp-eslint'),
+    fs = require('fs'),
+    less = require('gulp-less'),
+    autoprefixer = require('gulp-autoprefixer'),
+    sourcemaps = require('gulp-sourcemaps'),
+    cleanCSS = require('gulp-clean-css'),
+    uglify = require('gulp-uglify'),
+    concat = require('gulp-concat'),
+    concatCss = require('gulp-concat-css'),
+    typescript = require('gulp-typescript'),
+    tscConfig = require('./tsconfig.json'),
+    watch = require('gulp-watch');
 
 var DIST_DIR = 'dist',
     LAYOUT_PORT = 8000;
@@ -37,16 +39,18 @@ gulp.task('compile-html', function () {
 
 gulp.task('compile-js', function () {
     return gulp.src([
-        './src/front-end/js/app.js',
-        './src/front-end/js/router.js',
-        './src/front-end/js/components/*.js',
-        './src/front-end/js/constants/*.js',
-        './src/front-end/js/controllers/*.js',
-        './src/front-end/js/factories/*.js',
-        './src/front-end/js/services/*.js',
-        './src/front-end/js/filters/*.js'
+        // './src/front-end/js/app.js',
+        // './src/front-end/js/router.js',
+        // './src/front-end/js/components/*.js',
+        // './src/front-end/js/constants/*.js',
+        // './src/front-end/js/controllers/*.js',
+        // './src/front-end/js/factories/*.js',
+        // './src/front-end/js/services/*.js',
+        // './src/front-end/js/filters/*.js'
+        'src/front-end/ts/**/*.ts'
     ])
-        .pipe(concat('bundle.js'))
+        .pipe(concat('script.ts'))
+        .pipe(typescript(tscConfig.compilerOptions))
         .pipe(gulp.dest(DIST_DIR + "/public/js"))
 });
 
@@ -107,24 +111,24 @@ gulp.task('vendor-images', function () {
         .pipe(gulp.dest(DIST_DIR + '/public/img/leaflet'));
 });
 
-gulp.task('fonts', function(){
+gulp.task('fonts', function () {
     return gulp.src([
         './bower_components/bootstrap/dist/fonts/**'
     ])
         .pipe(gulp.dest(DIST_DIR + '/public/fonts/'));
 });
 
-gulp.task('leaflet-images', function(){
+gulp.task('leaflet-images', function () {
     return gulp.src([
         './bower_components/leaflet/dist/images/**'
     ])
         .pipe(gulp.dest(DIST_DIR + '/public/css/images'));
 });
 
-gulp.task('img', function(){
+gulp.task('img', function () {
     return gulp.src([
         './src/front-end/img/**/*.*'
-    ],{base:'./src/front-end/img/'})
+    ], {base: './src/front-end/img/'})
         .pipe(gulp.dest(DIST_DIR + '/public/img/'));
 });
 
@@ -152,7 +156,7 @@ gulp.task('update-front-end', [
 ]);
 
 gulp.task('build', [
-    'lint', 
+    'lint',
     'make-dirs',
     'build-back-end',
     'build-front-end'
