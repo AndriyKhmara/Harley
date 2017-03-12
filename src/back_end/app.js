@@ -8,8 +8,8 @@ var http = require("http"),
     configService = require("./services/ConfigService"),
     cookieParser = require("cookie-parser"),
     flash = require("connect-flash"),
-    weatherController = require("./controllers/weather"),
-    db = require("./models/dbModel");
+    weatherController = require("./controllers/weather");
+    //db = require("./models/dbModel");
     var api = express.Router();
 
 require('./config/passport')(passport);
@@ -36,14 +36,14 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(express.static("public"));
-app.use(session({
-    secret: 'this is the secret'
-}));
+// app.use(session({
+//     secret: 'this is the secret'
+// }));
 
 app.use(cookieParser());
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(flash());
 
 app.post("/login", passport.authenticate('local-login', { failWithError: true }), function(req, res) {
     res.json(req.user);
