@@ -10,7 +10,8 @@ var gulp            = require('gulp'),
     compile         = require('gulp-ejs-template'),
     concatCss       = require('gulp-concat-css'),
     watch           = require('gulp-watch'),
-    webpack         = require('gulp-webpack');
+    webpack         = require('gulp-webpack'),
+    webpackConfig   = require('./webpack.config.js');
 
 var DIST_DIR = 'dist',
     LAYOUT_PORT = 8000;
@@ -90,7 +91,19 @@ gulp.task('compile-html', function () {
 });
 
 gulp.task('compile-js', function () {
-    console.log("Compile");
+    return gulp.src(['./src/front-end/ts/**/**'])
+        .pipe(webpack(webpackConfig))
+        .pipe(gulp.dest(DIST_DIR + '/public/js'));
+});
+
+gulp.task('vendor-js', function () {
+   return gulp.src([
+       "./node_modules/zone.js/dist/zone.js",
+       "./node_modules/reflect-metadata/Reflect.js",
+       "./node_modules/systemjs/dist/system.src.js"
+   ])
+       .pipe(concat('vendor.js'))
+       .pipe(gulp.dest(DIST_DIR + '/public/js'));
 });
 
 gulp.task('compile-less', function () {
@@ -151,6 +164,7 @@ gulp.task('watch', function () {
 gulp.task('build-front-end', [
     'vendor-css',
     'vendor-images',
+    'vendor-js',
     'update-front-end',
     'fonts',
     'img'
