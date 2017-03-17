@@ -90,26 +90,7 @@ gulp.task('compile-html', function () {
 });
 
 gulp.task('compile-js', function () {
-    return gulp.src([
-        './src/front-end/js/**/*.jsx'
-    ])
-        .pipe(webpack({
-            module: {
-                loaders: [
-                    {
-                         loader: 'babel-loader',
-                         exclude: /node_modules/,
-                         query: {
-                            presets: ['es2015', 'react']
-                        }
-                    }
-                ]
-            },
-            output: {
-                filename: 'bundle.js'
-            }
-        }))        
-        .pipe(gulp.dest(DIST_DIR + '/public/js'));
+    console.log("Compile");
 });
 
 gulp.task('compile-less', function () {
@@ -182,7 +163,7 @@ gulp.task('update-front-end', [
 ]);
 
 gulp.task('build', [
-    'lint', 
+    //'lint',
     'make-dirs',
     'build-back-end',
     'build-front-end'
