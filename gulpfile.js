@@ -123,8 +123,8 @@ gulp.task('compile-less', function () {
 
 gulp.task('vendor-css', function () {
     return gulp.src([
-        './bower_components/leaflet/dist/leaflet.css',
-        './bower_components/bootstrap/dist/css/bootstrap.min.css'
+        './node_modules/leaflet/dist/leaflet.css'//,
+        //'./bower_components/bootstrap/dist/css/bootstrap.min.css'
     ])
         .pipe(sourcemaps.init())
         .pipe(concatCss('vendor.css'))

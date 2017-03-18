@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'my-app',
-    template: '<h1>hi</h1>'
+    selector: 'harley-app',
+    template: `<harley-header></harley-header><container></container>`
 })
 export class AppComponent { }
