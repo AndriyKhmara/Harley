@@ -1,6 +1,0 @@
-Harley.controller("currentWeatherController", ["$scope", "$rootScope", function ($scope, $rootScope) {
-    var initialize = function () {
-    };
-
-    initialize();
-}]);

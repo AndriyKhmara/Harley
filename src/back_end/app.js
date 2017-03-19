@@ -10,7 +10,7 @@ var http = require("http"),
     flash = require("connect-flash"),
     weatherController = require("./controllers/weather"),
     db = require("./models/dbModel");
-    var api = express.Router();
+var api = express.Router();
 
 require('./config/passport')(passport);
 
