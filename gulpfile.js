@@ -8,7 +8,9 @@ var gulp            = require('gulp'),
     uglify          = require('gulp-uglify'),
     concat          = require('gulp-concat'),
     concatCss       = require('gulp-concat-css'),
-    watch           = require('gulp-watch');
+    watch           = require('gulp-watch'),
+    webpack         = require('gulp-webpack'),
+    webpackConfig   = require('./webpack.config.js');
 
 var DIST_DIR = 'dist',
     LAYOUT_PORT = 8000;
@@ -36,39 +38,19 @@ gulp.task('compile-html', function () {
 });
 
 gulp.task('compile-js', function () {
-    return gulp.src([
-        './src/front-end/js/app.js',
-        './src/front-end/js/router.js',
-        './src/front-end/js/components/*.js',
-        './src/front-end/js/constants/*.js',
-        './src/front-end/js/controllers/*.js',
-        './src/front-end/js/factories/*.js',
-        './src/front-end/js/services/*.js',
-        './src/front-end/js/filters/*.js'
-    ])
-        .pipe(concat('bundle.js'))
-        .pipe(gulp.dest(DIST_DIR + "/public/js"))
+    return gulp.src(['./src/front-end/ts/**/**'])
+        .pipe(webpack(webpackConfig))
+        .pipe(gulp.dest(DIST_DIR + '/public/js'));
 });
 
 gulp.task('vendor-js', function () {
-    return gulp.src([
-        './bower_components/jquery/dist/jquery.min.js',
-        './bower_components/underscore/underscore-min.js',
-        './bower_components/leaflet/dist/leaflet.js',
-        './bower_components/chart.js/dist/Chart.min.js',
-        './bower_components/angular/angular.min.js',
-        './bower_components/angular-route/angular-route.min.js',
-        './bower_components/angular-resource/angular-resource.min.js',
-        './bower_components/angular-resource/angular-chart.min.js',
-        './bower_components/ui-leaflet/dist/ui-leaflet.min.js',
-        './bower_components/angular-ui-bootstrap/dist/ui-bootstrap-2.5.0.min.js',
-        './bower_components/angular-ui-bootstrap/dist/ui-bootstrap-tpls-2.5.0.min.js',
-        './bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
-        './bower_components/angular-chart.js/dist/angular-chart.min.js'
-    ])
-        .pipe(concat('vendor.js'))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(DIST_DIR + '/public/js'));
+   return gulp.src([
+       "./node_modules/zone.js/dist/zone.js",
+       "./node_modules/reflect-metadata/Reflect.js",
+       "./node_modules/systemjs/dist/system.src.js"
+   ])
+       .pipe(concat('vendor.js'))
+       .pipe(gulp.dest(DIST_DIR + '/public/js'));
 });
 
 gulp.task('compile-less', function () {
@@ -88,10 +70,8 @@ gulp.task('compile-less', function () {
 
 gulp.task('vendor-css', function () {
     return gulp.src([
-        './bower_components/leaflet/dist/leaflet.css',
-        './bower_components/bootstrap/dist/css/bootstrap.min.css',
-        './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
-        './bower_components/angular-ui-bootstrap/dist/ui-bootstrap-2.5.0-csp.css'
+        './node_modules/leaflet/dist/leaflet.css'//,
+        //'./bower_components/bootstrap/dist/css/bootstrap.min.css'
     ])
         .pipe(sourcemaps.init())
         .pipe(concatCss('vendor.css'))
@@ -139,6 +119,7 @@ gulp.task('build-front-end', [
     'vendor-css',
     'vendor-js',
     'vendor-images',
+    'vendor-js',
     'update-front-end',
     'fonts',
     'img',
@@ -152,7 +133,7 @@ gulp.task('update-front-end', [
 ]);
 
 gulp.task('build', [
-    'lint', 
+    //'lint',
     'make-dirs',
     'build-back-end',
     'build-front-end'
