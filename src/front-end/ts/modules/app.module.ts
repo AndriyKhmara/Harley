@@ -9,6 +9,8 @@ import { ContainerComponent } from '../components/container.component';
 import { MapComponent } from '../components/map.component';
 import { MapService } from "../services/map.service";
 import { ContactFormComponent } from "../components/contactForm.component";
+import { ChartComponent } from "../components/chart.component";
+import { CurrentWeatherService } from "../services/currentWeather.service";
 
 @NgModule({
     imports: [
@@ -21,10 +23,13 @@ import { ContactFormComponent } from "../components/contactForm.component";
         HeaderComponent,
         ContainerComponent,
         MapComponent,
-        ContactFormComponent
+        ContactFormComponent,
+        ChartComponent
     ],
     providers: [
-        MapService
+        MapService,
+        CurrentWeatherService
+
     ],
     bootstrap: [
         AppComponent

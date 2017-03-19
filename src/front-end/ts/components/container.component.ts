@@ -1,7 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
+import { CurrentWeatherService } from '../services/currentWeather.service'
 
+//TODO: remove template to separate html file
 @Component({
     selector: 'container',
-    template: `<div><map></map><contact-form></contact-form></div>`
+    template: `
+        <div>
+            <map [weather]="weatherData"></map>
+            <contact-form></contact-form>
+            <chart [weather]="weatherData"></chart>
+        </div>
+    `
 })
-export class ContainerComponent { }
+export class ContainerComponent{
+    public weatherData: any;
+
+    constructor(private currentWeatherService: CurrentWeatherService) {
+        this.weatherData = [{cityName: "No city", sourceAPI: "no API"}];
+        this.weatherData = currentWeatherService.getWeatherData()
+            .subscribe(
+                data => this.weatherData = data,
+                error =>  console.log(error)
+            );
+    }
+
+
+}
