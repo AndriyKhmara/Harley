@@ -1,17 +1,36 @@
-/*jslint unparam: true*/
+
 var http = require("http"),
     express = require("express"),
     bodyParser = require("body-parser"),
     app = express(),
     passport = require("passport"),
-    bcrypt = require("bcrypt-nodejs"),
     session = require("express-session"),
     logger = require("./services/logger"),
     configService = require("./services/ConfigService"),
-    user = require("./services/userService"),
     cookieParser = require("cookie-parser"),
     flash = require("connect-flash"),
-    weatherController = require("./controllers/weather");
+    weatherController = require("./controllers/weather"),
+    db = require("./models/dbModel");
+var api = express.Router();
+
+require('./config/passport')(passport);
+
+function handleError(err,req,res,next){
+    var output = {
+        error: {
+            name: err.name,
+            message: err.message,
+            text: err.toString()
+        }
+    };
+    var statusCode = err.status || 500;
+    res.status(statusCode).json(output);
+}
+
+api.use( [
+    handleError
+] );
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
