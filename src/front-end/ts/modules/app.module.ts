@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from "@angular/http";
 import { FormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppComponent } from '../components/app.component';
 import { HeaderComponent } from '../components/header.component';
@@ -16,7 +17,8 @@ import { CurrentWeatherService } from "../services/currentWeather.service";
     imports: [
         BrowserModule,
         HttpModule,
-        FormsModule
+        FormsModule,
+        ChartsModule
     ],
     declarations: [
         AppComponent,

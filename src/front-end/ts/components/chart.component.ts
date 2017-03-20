@@ -10,9 +10,18 @@ import {Component, Input} from '@angular/core';
                 <p>Temperature:</p>
                 <ul *ngIf="weather[0]">
                     <li *ngFor="let data of weather">
-                        in {{data.cityName}} by {{data.sourceAPI}} is {{data.temp}};  
+                        in {{data.cityName}} by {{data.sourceAPI}} is {{data.temp}}; 
                     </li>
                 </ul>
+                <canvas baseChart width="400" height="400"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
             </div>
         </div>
     </div>`
