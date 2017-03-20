@@ -14,14 +14,12 @@ import {Component, Input} from '@angular/core';
                     </li>
                 </ul>
                 <canvas baseChart width="400" height="400"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
+                [datasets]="chartData"
+                [labels]="chartLabels"
+                [options]="chartOptions"
+                [colors]="chartColors"
+                [legend]="chartLegend"
+                [chartType]="chartType"></canvas>
             </div>
         </div>
     </div>`
@@ -31,43 +29,43 @@ export class ChartComponent {
     public className: string;
     @Input()
     public weather: any;
-    public lineChartData:Array<any> = [
-        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-        {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-        {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
+    public chartData:Array<any> = [
+        {data: [2.2, 0, 0.27 ], label: 'darkSky'},
+        {data: [-1.37, -0.92, 1], label: 'openWeather'},
+        {data: [-1.68,-5.18, -2.3], label: 'wunderground'}
     ];
-    public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    public lineChartOptions:any = {
+    public chartLabels:Array<any> = ['Kiev', 'Rivne', 'Lutsk'];
+    public chartOptions:any = {
         responsive: true
     };
-    public lineChartColors:Array<any> = [
-        { // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
+    public chartColors:Array<any> = [
+        { // pink
+            backgroundColor: '#ffbac7',
+            borderColor: '#ff1744',
+            pointBackgroundColor: '#ff1744',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+            pointHoverBorderColor: '#ff1744'
         },
-        { // dark grey
-            backgroundColor: 'rgba(77,83,96,0.2)',
-            borderColor: 'rgba(77,83,96,1)',
-            pointBackgroundColor: 'rgba(77,83,96,1)',
+        { // green
+            backgroundColor: '#e1f0d1',
+            borderColor: '#9ccc65',
+            pointBackgroundColor: '#9ccc65',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(77,83,96,1)'
+            pointHoverBorderColor: '#9ccc65'
         },
-        { // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
+        { // blue
+            backgroundColor: '#bde0fb',
+            borderColor: '#2196f3',
+            pointBackgroundColor: '#2196f3',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+            pointHoverBorderColor: '#2196f3'
         }
     ];
-    public lineChartLegend:boolean = true;
-    public lineChartType:string = 'line';
+    public chartLegend:boolean = true;
+    public chartType:string = 'bar';
 
 
     constructor() {
