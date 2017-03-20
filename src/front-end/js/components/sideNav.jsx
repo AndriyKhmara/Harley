@@ -1,6 +1,7 @@
 import React from "react";
 import DatePicker from "react-bootstrap-date-picker";
-import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup, Modal} from "react-bootstrap";
+import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup, Modal, Tabs, Tab} from "react-bootstrap";
+import Auth from "./authModal.jsx";
 import {CHART_TYPES} from "./../constants/constants.jsx";
 import { changeChartTypeAction, changeCityAction, changeDateFromAction, changeDateToAction, changeStatTypeAction } from "./../actions/chartActions.jsx";
 import { getStatisticsDataAction } from "./../actions/dataActions.jsx";
@@ -17,7 +18,13 @@ export default class SideNav extends React.Component {
         this.handleGetFormData = this.handleGetFormData.bind(this);
         this.handleModalClose = this.handleModalClose.bind(this);
         this.handleModalOpen = this.handleModalOpen.bind(this);
+        this.getInitialState = this.getInitialState.bind(this);
         this.state = props.chartState;
+
+    }
+
+    getInitialState() {
+        return { showModal: false };
     }
 
     handleShowChartClick () {
@@ -58,9 +65,71 @@ export default class SideNav extends React.Component {
     }
 
     render () {
+        let close = () => this.setState({ showModal: false});
         return (
             <div className={this.props.className}>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <button
+                        className="btn btn-info"
+                        onClick={() => this.setState({ showModal: true})}
+                    >
+                        Log In / Register
+                    </button>
+                    <Modal
+                        show={this.state.showModal}
+                        onHide={close}
+                        container={this}
+                        aria-labelledby="contained-modal-title"
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title id="contained-modal-title">
+                                Log In / Register
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
+                                <Tab eventKey={1} title="Log In">
+                                    <div className="col-sm-12">
+                                        <h2><span className="fa fa-sign-in"></span> Login</h2>
+                                        <form action="/login" method="post">
+                                            <div className="form-group">
+                                                <label>User name</label>
+                                                <input type="text" className="form-control" name="username"/>
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Password</label>
+                                                <input type="password" className="form-control" name="password"/>
+                                            </div>
+                                            <button type="submit" className="btn btn-warning btn-lg">
+                                                Log In
+                                            </button>
+                                        </form>
+                                    </div>
+                                </Tab>
+                                <Tab eventKey={2} title="Register">
+                                    <div className="col-sm-12">
+                                        <h2><span className="fa fa-sign-in"></span> Sign up</h2>
+                                        <form action="/signup" method="post">
+                                            <div className="form-group">
+                                                <label>User name</label>
+                                                <input type="text" className="form-control" name="username"/>
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Password</label>
+                                                <input type="password" className="form-control" name="password"/>
+                                            </div>
+                                            <button type="submit" className="btn btn-warning btn-lg">
+                                                Sign Up
+                                            </button>
+                                        </form>
+                                    </div>
+                                </Tab>
+                            </Tabs>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={close}>Close</Button>
+                        </Modal.Footer>
+                    </Modal>
                     <form>
                         <h3 className="">Show information</h3>
                         <FormGroup>
