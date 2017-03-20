@@ -1,13 +1,19 @@
-.current-weather-chart{
-  header{
-    position: static;
-    background: transparent;
-    text-align: center;
+section.current-weather {
+  margin: 1% 0;
+  padding: 1% 0;
+  @media screen and (max-width: 768px) {
+    margin: 15px 0;
+    padding: 15px 0;
   }
-  canvas{
-    width:100%;
-    max-width:650px;
-    margin: 0 auto;
-    height:35vh;
+  label{
+    display: block;
+    padding:6px 0 2px;
+    color: #fff;
+    font-size:18px;
+  }
+  select{
+    width: 100%;
+    padding:6px 12px;
+    font-size:16px;
   }
 }
