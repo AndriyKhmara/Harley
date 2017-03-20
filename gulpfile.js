@@ -10,8 +10,7 @@ var gulp            = require('gulp'),
     compile         = require('gulp-ejs-template'),
     concatCss       = require('gulp-concat-css'),
     watch           = require('gulp-watch'),
-    webpack         = require('gulp-webpack'),
-    webpackConfig   = require('./webpack.config.js');
+    webpack         = require('gulp-webpack');
 
 var DIST_DIR = 'dist',
     LAYOUT_PORT = 8000;
@@ -91,18 +90,25 @@ gulp.task('compile-html', function () {
 });
 
 gulp.task('compile-js', function () {
-    return gulp.src(['./src/front-end/ts/**/**'])
-        .pipe(webpack(webpackConfig))
-        .pipe(gulp.dest(DIST_DIR + '/public/js'));
-});
-
-gulp.task('vendor-js', function () {
     return gulp.src([
-        "./node_modules/zone.js/dist/zone.js",
-        "./node_modules/reflect-metadata/Reflect.js",
-        "./node_modules/systemjs/dist/system.src.js"
+        './src/front-end/js/**/*.jsx'
     ])
-        .pipe(concat('vendor.js'))
+        .pipe(webpack({
+            module: {
+                loaders: [
+                    {
+                        loader: 'babel-loader',
+                        exclude: /node_modules/,
+                        query: {
+                            presets: ['es2015', 'react']
+                        }
+                    }
+                ]
+            },
+            output: {
+                filename: 'bundle.js'
+            }
+        }))
         .pipe(gulp.dest(DIST_DIR + '/public/js'));
 });
 
@@ -123,8 +129,8 @@ gulp.task('compile-less', function () {
 
 gulp.task('vendor-css', function () {
     return gulp.src([
-        './node_modules/leaflet/dist/leaflet.css'//,
-        //'./bower_components/bootstrap/dist/css/bootstrap.min.css'
+        './bower_components/leaflet/dist/leaflet.css',
+        './bower_components/bootstrap/dist/css/bootstrap.min.css'
     ])
         .pipe(sourcemaps.init())
         .pipe(concatCss('vendor.css'))
@@ -164,7 +170,6 @@ gulp.task('watch', function () {
 gulp.task('build-front-end', [
     'vendor-css',
     'vendor-images',
-    'vendor-js',
     'update-front-end',
     'fonts',
     'img'
@@ -177,7 +182,7 @@ gulp.task('update-front-end', [
 ]);
 
 gulp.task('build', [
-    //'lint',
+    'lint',
     'make-dirs',
     'build-back-end',
     'build-front-end'
