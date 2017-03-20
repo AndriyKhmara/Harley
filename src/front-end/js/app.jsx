@@ -22,7 +22,6 @@ class Harley extends React.Component {
     componentWillUnmount() {
         this.unsubscribe();
     }
-
     render() {
         return (
             <div className="row">
