@@ -3,7 +3,8 @@ import { MapService } from '../services/map.service';
 
 @Component({
     selector: 'map',
-    template: `<div><div id="map"></div></div>`
+    template: `<div><div id="map"></div></div>`,
+    styles:['#map{width:65%; height:35vh; margin:0 auto;}']
 })
 
 export class MapComponent {

@@ -9,7 +9,7 @@ import { ContainerComponent } from '../components/container.component';
 import { MapComponent } from '../components/map.component';
 import { MapService } from "../services/map.service";
 import { ContactFormComponent } from "../components/contactForm.component";
-import { sideNavComponents } from "../components/contactForm.component";
+import { sideNavComponent } from "../components/sideNav.component";
 
 
 @NgModule({
