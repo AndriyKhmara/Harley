@@ -11,8 +11,6 @@ export class MapComponent implements OnChanges {
     @Input()
     public weather: any;
     public mockWeather: any;
-    public MAPBOX: any;
-    public OPENSTREET: any;
 
     constructor(private mapService: MapService) {
         this.mockWeather = [
@@ -170,63 +168,66 @@ export class MapComponent implements OnChanges {
                     "date": 1479418134
                   }
             ];
-
-           this.MAPBOX = {
-                NAME: "Earth",
-                TILES_NAME: 'mapbox.streets',
-                URL: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
-                TYPE: 'xyz',
-                API_KEY: 'pk.eyJ1IjoiZHJvYmVueXVrIiwiYSI6ImNpdXp3aDczZTAwM2wyb3IzbXF0OTZ5YjgifQ.2WbUs9CJ8XuPlG3coCxBbg'
-            }
-
-            this.OPENSTREET = {
-                NAME: "Roads",
-                URL: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                TYPE: 'xyz'
-            }
     }
 
-    getMapboxConfig () {
-        return {
-            name: this.MAPBOX.NAME,
-            url: this.MAPBOX.URL,
-            type: this.MAPBOX.TYPE,
-            layerOptions: {
-                apikey: this.MAPBOX.API_KEY,
-                mapid: this.MAPBOX.TILES_NAME
-            }
-        }
-    };
+    // prepareMarkerMsg (data) {
+    //     return [
+    //         '<h4>',
+    //         data.cityName,
+    //         '</h4><ul><li>Temperature: <b>',
+    //         data.temp,
+    //         ' &deg;C</b></li>',
+    //         '<li>Pressure: <b>',
+    //         data.pressure,
+    //         ' mmHg</b></li>',
+    //         '<li>Humidity: <b>',
+    //         data.humidity, ' %</b></li>',
+    //         '<li>Wind speed: <b>',
+    //         data.windSpeed,
+    //         ' meter/sec</b></li></ul>'
+    //     ].join('')
+    // };
 
-    getOpenStreetConfig() {
-        return {
-            name: this.OPENSTREET.NAME,
-            url: this.OPENSTREET.URL,
-            type: this.OPENSTREET.TYPE
-        };
-    }
+    // renderMarkers = function () {
+    //     let data = this.mockWeather;
+    //     var markers = [];
+    //     data.forEach(function (item) {
+    //         markers.push({
+    //             lat: item.coords.lat,
+    //             lng: item.coords.lon,
+    //             focus: false,
+    //             draggable: false,
+    //             message: '<h4>'+ item.cityName + '</h4><ul><li>Temperature: <b>' + item.temp + '&deg;C</b></li><li>Pressure: <b>' + item.pressure +
+    //         + ' mmHg</b></li><li>Humidity: <b>' + item.humidity + ' %</b></li><li>Wind speed: <b>' + item.windSpeed + ' meter/sec</b></li></ul>',
+    //             icon: {}
+    //         });
+    //     });
+    //     return markers; 
+    // };
 
     ngOnInit() {
         let map = L.map("map", {
             zoomControl: false,
             center: L.latLng(50.63, 26.23),
             zoom: 7,
-            //layers: [this.mapService.baseMaps.OpenStreetMap]
-            layers: {
-                baselayers: {
-                    mapbox: this.getMapboxConfig(),
-                    osm: this.getOpenStreetConfig()
-                }
-            }
+            layers: [this.mapService.baseMaps.OpenStreetMap]
         });
 
         L.control.zoom({ position: "topright" }).addTo(map);
         L.control.layers(this.mapService.baseMaps).addTo(map);
         L.control.scale().addTo(map);
 
-        L.marker([50.630694, 26.239034]).addTo(map)
-        .bindPopup("Rivne")
-        .openPopup();
+        
+        var markers = this.mockWeather;
+        markers.forEach(function (item, i, arr) {
+            if (item.sourceAPI === "darkSky") {
+                let message = '<h4>'+ item.cityName + '</h4><ul><li>Temperature: <b>' + item.temp + '&deg;C</b></li><li>Pressure: <b>' + item.pressure +
+                                 + ' mmHg</b></li><li>Humidity: <b>' + item.humidity + ' %</b></li><li>Wind speed: <b>' + item.windSpeed + ' meter/sec</b></li></ul>'
+                L.marker([item.coords.lat, item.coords.lon]).addTo(map)
+              .bindPopup(message)
+              .openPopup();
+            }
+        });
 
         this.mapService.map = map;
         console.log("MockWeather", this.mockWeather)
