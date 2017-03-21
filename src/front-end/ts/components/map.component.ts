@@ -170,41 +170,6 @@ export class MapComponent implements OnChanges {
             ];
     }
 
-    // prepareMarkerMsg (data) {
-    //     return [
-    //         '<h4>',
-    //         data.cityName,
-    //         '</h4><ul><li>Temperature: <b>',
-    //         data.temp,
-    //         ' &deg;C</b></li>',
-    //         '<li>Pressure: <b>',
-    //         data.pressure,
-    //         ' mmHg</b></li>',
-    //         '<li>Humidity: <b>',
-    //         data.humidity, ' %</b></li>',
-    //         '<li>Wind speed: <b>',
-    //         data.windSpeed,
-    //         ' meter/sec</b></li></ul>'
-    //     ].join('')
-    // };
-
-    // renderMarkers = function () {
-    //     let data = this.mockWeather;
-    //     var markers = [];
-    //     data.forEach(function (item) {
-    //         markers.push({
-    //             lat: item.coords.lat,
-    //             lng: item.coords.lon,
-    //             focus: false,
-    //             draggable: false,
-    //             message: '<h4>'+ item.cityName + '</h4><ul><li>Temperature: <b>' + item.temp + '&deg;C</b></li><li>Pressure: <b>' + item.pressure +
-    //         + ' mmHg</b></li><li>Humidity: <b>' + item.humidity + ' %</b></li><li>Wind speed: <b>' + item.windSpeed + ' meter/sec</b></li></ul>',
-    //             icon: {}
-    //         });
-    //     });
-    //     return markers; 
-    // };
-
     ngOnInit() {
         let map = L.map("map", {
             zoomControl: false,
