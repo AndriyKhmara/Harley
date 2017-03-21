@@ -4,7 +4,7 @@ import { MapService } from '../services/map.service';
 @Component({
     selector: 'map',
     template: `<div><div id="map"></div></div>`,
-    styles:['#map{width:65%; height:35vh; margin:0 auto;}']
+    styles:['#map{width:65%; height:35vh; margin:0 auto; z-index:-11111;}']
 })
 
 export class MapComponent {
