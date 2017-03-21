@@ -41,13 +41,13 @@ export class ChartComponent {
     public chartData: any;
     @Input()
     public weather: any;
-    public getChartData: any = function () {
+    public getChartData() {
         return [
             {data: [2.2, 0, 0.27 ], label: 'darkSky'},
             {data: [-1.37, -0.92, 1], label: 'openWeather'},
-            {data: [-1.68,-5.18, -2.3], label: 'wunderground'}
+            {data: [-1.68, 5.18, -2.3], label: 'wunderground'}
         ];
-    }
+    };
     public chartLabels:Array<any> = ['Kiev', 'Rivne', 'Lutsk'];
     public chartOptions:any = {
         responsive: true
@@ -94,6 +94,7 @@ export class ChartComponent {
         {id: 2, name: "temperature"},
         {id: 3, name: "humidity"}
     ];
+
     ngOnChanges() {
         console.log ("city:", this.selectedCity)
     }
@@ -101,7 +102,6 @@ export class ChartComponent {
     constructor() {
         this.name = "Current Weather Chart";
         this.className = "current-chart";
-        this.chartData = this.getChartData;
+        this.chartData = this.getChartData();
     }
-
 }
