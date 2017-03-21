@@ -15,12 +15,12 @@ import {Component, Input} from '@angular/core';
                 </ul>
                 <div>
                 <label>select city</label>
-                <select [(ngModel)]="selectedValue">
-                    <option *ngFor="let c of cities" [ngValue]="c">{{c.name}}</option>
+                <select [(ngModel)]="selectedCity">
+                    <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
                 </select>
                 <label>select params</label>
-                <select [(ngModel)]="selectedValue">
-                    <option *ngFor="let p of params" [ngValue]="p">{{p.name}}</option>
+                <select [(ngModel)]="selectedParam">
+                    <option *ngFor="let param of params" [ngValue]="param">{{param.name}}</option>
                 </select>
                 </div>
                 <canvas baseChart width="400" height="400"
@@ -77,20 +77,21 @@ export class ChartComponent {
     ];
     public chartLegend:boolean = true;
     public chartType:string = 'bar';
+    public selectedCity:any;
+    public selectedParam:any;
 
-    cities = [
+    public cities = [
         {id: 1, name: "Kiev"},
         {id: 2, name: "Rivne"},
         {id: 3, name: "Lutsk"}
     ];
-    selectedValue = null;
 
-    params = [
+    public params = [
         {id: 1, name: "wind speed"},
         {id: 2, name: "temperature"},
         {id: 3, name: "humidity"}
     ];
-    selectedValue = null;
+
 
     constructor() {
         this.name = "Current Weather Chart";
