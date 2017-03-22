@@ -182,12 +182,11 @@ export class MapComponent implements OnChanges {
         L.control.layers(this.mapService.baseMaps).addTo(map);
         L.control.scale().addTo(map);
 
-        
         var markers = this.mockWeather;
         markers.forEach(function (item, i, arr) {
             if (item.sourceAPI === "darkSky") {
                 let message = '<h4>'+ item.cityName + '</h4><ul><li>Temperature: <b>' + item.temp + '&deg;C</b></li><li>Pressure: <b>' + item.pressure +
-                                 + ' mmHg</b></li><li>Humidity: <b>' + item.humidity + ' %</b></li><li>Wind speed: <b>' + item.windSpeed + ' meter/sec</b></li></ul>'
+                                 + ' mm Hg</b></li><li>Humidity: <b>' + item.humidity + ' %</b></li><li>Wind speed: <b>' + item.windSpeed + ' meter/sec</b></li></ul>'
                 L.marker([item.coords.lat, item.coords.lon]).addTo(map)
               .bindPopup(message)
               .openPopup();
@@ -198,17 +197,7 @@ export class MapComponent implements OnChanges {
         console.log("MockWeather", this.mockWeather)
     }
 
-    /**
-     * Для Ліди.
-     * Ця функція запускається тоді коли в компоненті відбуваються зміни.
-     * Рекомендую параметри для штшціалізацію попапів перенести сюди.
-     * Примітка взагалі дані функцію я б не використовував, а писав у власних методах, бо
-     * функція @Input() сама потівм усе пермалює.
-     *
-     * P/S:
-     * я поки на 100% не впевнений що воно так працює тому пиши я по мірі прочитання документаці буду це оновлювати
-     */
     ngOnChanges() {
-        console.log ("Weather in ngOnChanges:", this.weather)
+        console.log("renderMarkers");
     }
 }
