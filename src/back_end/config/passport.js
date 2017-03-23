@@ -1,6 +1,7 @@
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var config = require('./config.json');
+var jwt = require('jsonwebtoken');
 var User = require('../models/userModel');
 
 module.exports = function(passport) {
@@ -25,7 +26,18 @@ module.exports = function(passport) {
                     return done(null, {alert: "No such user"});
                 if (!user.validPassword(password))
                     return done(null, {alert: "Oops! Wrong password."});
-                return done(null, user);
+                var payload = {
+                    sub: user._id
+                };
+                var token = jwt.sign(payload, config.jwtSecret);
+                var data = {
+                    name: user.username
+                };
+
+                console.log(token);
+                console.log(user);
+                console.log(JSON.stringify(user));
+                return done(null, token, data);
             });
         }
     ));

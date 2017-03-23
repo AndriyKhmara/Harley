@@ -1,13 +1,13 @@
 import React from "react";
 import DatePicker from "react-bootstrap-date-picker";
 import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup, Modal, Tabs, Tab} from "react-bootstrap";
-import Auth from "./authModal.jsx";
+import Auth from "../modules/auth.jsx";
 import {CHART_TYPES} from "./../constants/constants.jsx";
 import { changeChartTypeAction, changeCityAction, changeDateFromAction, changeDateToAction, changeStatTypeAction } from "./../actions/chartActions.jsx";
 import { getStatisticsDataAction } from "./../actions/dataActions.jsx";
 
 export default class SideNav extends React.Component {
-    constructor(props) {
+    constructor(props, context) {
         super(props);
         this.handleShowChartClick = this.handleShowChartClick.bind(this);
         this.handleChartType = this.handleChartType.bind(this);
@@ -21,7 +21,86 @@ export default class SideNav extends React.Component {
         this.getInitialState = this.getInitialState.bind(this);
         this.state = props.chartState;
 
+        super(props, context);
+
+        const storedMessage = localStorage.getItem('successMessage');
+        let successMessage = '';
+
+        if (storedMessage) {
+            successMessage = storedMessage;
+            localStorage.removeItem('successMessage');
+        }
+
+        this.state = {
+            errors: {},
+            successMessage,
+            user: {
+                username: '',
+                password: ''
+            }
+        };
+
+        this.processForm = this.processForm.bind(this);
+        this.changeUser = this.changeUser.bind(this);
+
     }
+
+    processForm(event) {
+        // prevent default action. in this case, action is the form submission event
+        event.preventDefault();
+
+        // create a string for an HTTP body message
+        const username = encodeURIComponent(this.state.user.username);
+        const password = encodeURIComponent(this.state.user.password);
+        const formData = `username=${username}&password=${password}`;
+
+        // create an AJAX request
+        const xhr = new XMLHttpRequest();
+        xhr.open('post', '/login');
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.responseType = 'json';
+        xhr.addEventListener('load', () => {
+            if (xhr.status === 200) {
+                this.setState({
+                    errors: {}
+                });
+                if (xhr.response.alert) {
+                    console.log(xhr.response.alert);
+                } else {
+                    Auth.authenticateUser(xhr.response);
+                }
+
+                // console.log(xhr.response);
+            }
+            // } else {
+            //     const errors = xhr.response.errors ? xhr.response.errors : {};
+            //
+            //     errors.summary = xhr.response.message;
+            //     this.setState({
+            //         errors
+            //     });
+            // }
+        });
+        xhr.send(formData);
+    }
+
+    /**
+     * Change the user object.
+     *
+     * @param {object} event - the JavaScript event object
+     */
+    changeUser(event) {
+        const field = event.target.name;
+        const user = this.state.user;
+        user[field] = event.target.value;
+
+        this.setState({
+            user
+        });
+    }
+
+
+
 
     getInitialState() {
         return { showModal: false };
@@ -64,7 +143,10 @@ export default class SideNav extends React.Component {
         getStatisticsDataAction(this.state.periodFrom, this.state.periodTo, this.state.cityName);
     }
 
+
+
     render () {
+        console.log(this.state);
         let close = () => this.setState({ showModal: false});
         return (
             <div className={this.props.className}>
@@ -87,23 +169,40 @@ export default class SideNav extends React.Component {
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
+                            <Tabs defaultActiveKey={1} id="login-form">
                                 <Tab eventKey={1} title="Log In">
                                     <div className="col-sm-12">
                                         <h2><span className="fa fa-sign-in"></span> Login</h2>
-                                        <form action="/login" method="post">
-                                            <div className="form-group">
-                                                <label>User name</label>
-                                                <input type="text" className="form-control" name="username"/>
+                                        <form action="/" onSubmit={this.processForm}>
+                                            <h2 className="card-heading">Login</h2>
+
+                                            {this.state.successMessage && <p className="success-message">{this.state.successMessage}</p>}
+                                            {this.state.errors.summary && <p className="error-message">{this.state.errors.summary}</p>}
+
+                                            <div className="field-line">
+                                                <FormControl
+                                                    name="username"
+                                                    onChange={this.changeUser}
+                                                    type="text"
+                                                    value={this.state.user.username}
+                                                />
                                             </div>
-                                            <div className="form-group">
-                                                <label>Password</label>
-                                                <input type="password" className="form-control" name="password"/>
+
+                                            <div className="field-line">
+                                                <FormControl
+                                                    type="password"
+                                                    name="password"
+                                                    onChange={this.changeUser}
+                                                    value={this.state.user.password}
+                                                />
                                             </div>
-                                            <button type="submit" className="btn btn-warning btn-lg">
-                                                Log In
-                                            </button>
+
+                                            <div className="button-line">
+                                                <button type="submit">Log in</button>
+                                            </div>
+
                                         </form>
+
                                     </div>
                                 </Tab>
                                 <Tab eventKey={2} title="Register">
