@@ -37,7 +37,7 @@ var ChartComponent = (function () {
     };
     ;
     ChartComponent.prototype.getChartLabels = function () {
-        return ['Kiev', 'Rivne', 'Lutsk'];
+        return [this.selectedCity.name];
     };
     ChartComponent.prototype.getChartOptions = function () {
         return {
@@ -82,7 +82,8 @@ var ChartComponent = (function () {
     };
     ChartComponent.prototype.ngOnChanges = function () {
         console.log("city:", this.selectedCity.name);
-        console.log("city:", this.selectedCity.name);
+        console.log("param:", this.selectedParam.name);
+        return this.selectedCity.name;
     };
     __decorate([
         core_1.Input()
@@ -90,7 +91,7 @@ var ChartComponent = (function () {
     ChartComponent = __decorate([
         core_1.Component({
             selector: 'chart',
-            template: "\n    <div class=\"{{className}} container\">\n        <div class=\"row\">\n            <div class=\"col-xs-12\">\n                <h2>{{name}}</h2>\n                <p>Temperature:</p>\n                <ul *ngIf=\"weather[0]\">\n                    <li *ngFor=\"let data of weather\">\n                        in {{data.cityName}} by {{data.sourceAPI}} is {{data.temp}}; \n                    </li>\n                </ul>\n                <div>\n                <label>select city</label>\n                <select [(ngModel)]=\"selectedCity\" (ngModelChange)=\"onChangeCity($event)\">\n                    <option *ngFor=\"let city of cities\" [ngValue]=\"city\">{{city.name}}</option>\n                </select>\n                <!--{{selectedCity | json}}-->\n                <label>select params</label>\n                <select [(ngModel)]=\"selectedParam\" (ngModelChange)=\"onChangeParam($event)\">\n                    <option *ngFor=\"let param of params\" [ngValue]=\"param\">{{param.name}}</option>\n                </select>\n                </div>\n                <canvas baseChart width=\"400\" height=\"400\"\n                [datasets]=\"chartData\"\n                [labels]=\"chartLabels\"\n                [options]=\"chartOptions\"\n                [colors]=\"chartColors\"\n                [legend]=\"chartLegend\"\n                [chartType]=\"chartType\"></canvas>\n            </div>\n        </div>\n    </div>"
+            template: "\n    <div class=\"{{className}} container\">\n        <div class=\"row\">\n            <div class=\"col-xs-12\" style=\"width:60%; min-width: 320px; margin: 0 20%;border: 1px solid black\">\n                <h2>{{name}}</h2>\n                <p>Temperature:</p>\n                <ul *ngIf=\"weather[0]\">\n                    <li *ngFor=\"let data of weather\">\n                        in {{data.cityName}} by {{data.sourceAPI}} is {{data.temp}}; \n                    </li>\n                </ul>\n                <div>\n                <label>select city</label>\n                <select [(ngModel)]=\"selectedCity\" (ngModelChange)=\"onChangeCity($event)\">\n                    <option *ngFor=\"let city of cities\" [ngValue]=\"city\">{{city.name}}</option>\n                </select>\n                <!--{{selectedCity | json}}-->\n                <label>select params</label>\n                <select [(ngModel)]=\"selectedParam\" (ngModelChange)=\"onChangeParam($event)\">\n                    <option *ngFor=\"let param of params\" [ngValue]=\"param\">{{param.name}}</option>\n                </select>\n                </div>\n                <canvas baseChart width=\"400\" height=\"400\"\n                [datasets]=\"chartData\"\n                [labels]=\"chartLabels\"\n                [options]=\"chartOptions\"\n                [colors]=\"chartColors\"\n                [legend]=\"chartLegend\"\n                [chartType]=\"chartType\"></canvas>\n            </div>\n        </div>\n    </div>"
         })
     ], ChartComponent);
     return ChartComponent;
