@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { MapService } from '../services/map.service';
 
 @Component({
     selector: 'map',
-    template: `<div><div id="map"></div></div>`
+    template: `<div><div id="map"></div></div>`,
+    styles:['#map{width:65%; height:35vh; margin:0 auto; z-index:-11111;}']
 })
 
-export class MapComponent {
+export class MapComponent implements OnChanges {
+    @Input()
+    public weather: any;
+
     constructor(private mapService: MapService) {
 
     }
@@ -26,5 +30,20 @@ export class MapComponent {
         L.control.scale().addTo(map);
 
         this.mapService.map = map;
+        console.log("Weather in ngOnInit:", this.weather)
+    }
+
+    /**
+     * Для Ліди.
+     * Ця функція запускається тоді коли в компоненті відбуваються зміни.
+     * Рекомендую параметри для штшціалізацію попапів перенести сюди.
+     * Примітка взагалі дані функцію я б не використовував, а писав у власних методах, бо
+     * функція @Input() сама потівм усе пермалює.
+     *
+     * P/S:
+     * я поки на 100% не впевнений що воно так працює тому пиши я по мірі прочитання документаці буду це оновлювати
+     */
+    ngOnChanges(){
+        console.log("Weather in ngOnChanges:", this.weather)
     }
 }
