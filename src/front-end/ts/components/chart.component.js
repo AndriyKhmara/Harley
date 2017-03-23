@@ -10,11 +10,42 @@ var ChartComponent = (function () {
     function ChartComponent() {
         this.chartLegend = true;
         this.chartType = 'bar';
-        this.chartLabels = ['Kiev', 'Rivne', 'Lutsk'];
-        this.chartOptions = {
+        this.cities = [
+            { id: 1, name: "Kiev" },
+            { id: 2, name: "Rivne" },
+            { id: 3, name: "Lutsk" }
+        ];
+        this.selectedCity = this.cities[1];
+        this.params = [
+            { id: 1, name: "wind speed" },
+            { id: 2, name: "temperature" },
+            { id: 3, name: "humidity" }
+        ];
+        this.selectedParam = this.params[1];
+        this.name = "Current Weather Chart";
+        this.className = "current-chart";
+        this.chartData = this.getChartData();
+        this.chartLabels = this.getChartLabels();
+        this.chartColors = this.getChartColors();
+    }
+    ChartComponent.prototype.getChartData = function () {
+        return [
+            { data: [2.2, 0, 0.27], label: 'darkSky' },
+            { data: [-1.37, -0.92, 1], label: 'openWeather' },
+            { data: [-1.68, 4.18, -2.3], label: 'wunderground' }
+        ];
+    };
+    ;
+    ChartComponent.prototype.getChartLabels = function () {
+        return ['Kiev', 'Rivne', 'Lutsk'];
+    };
+    ChartComponent.prototype.getChartOptions = function () {
+        return {
             responsive: true
         };
-        this.chartColors = [
+    };
+    ChartComponent.prototype.getChartColors = function () {
+        return [
             {
                 backgroundColor: '#ffbac7',
                 borderColor: '#ff1744',
@@ -40,30 +71,7 @@ var ChartComponent = (function () {
                 pointHoverBorderColor: '#2196f3'
             }
         ];
-        this.cities = [
-            { id: 1, name: "Kiev" },
-            { id: 2, name: "Rivne" },
-            { id: 3, name: "Lutsk" }
-        ];
-        this.selectedCity = this.cities[1];
-        this.params = [
-            { id: 1, name: "wind speed" },
-            { id: 2, name: "temperature" },
-            { id: 3, name: "humidity" }
-        ];
-        this.selectedParam = this.params[1];
-        this.name = "Current Weather Chart";
-        this.className = "current-chart";
-        this.chartData = this.getChartData();
-    }
-    ChartComponent.prototype.getChartData = function () {
-        return [
-            { data: [2.2, 0, 0.27], label: 'darkSky' },
-            { data: [-1.37, -0.92, 1], label: 'openWeather' },
-            { data: [-1.68, 4.18, -2.3], label: 'wunderground' }
-        ];
     };
-    ;
     ChartComponent.prototype.onChangeCity = function (newCity) {
         console.log("city:", newCity.name);
         this.selectedCity = newCity;

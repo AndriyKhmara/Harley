@@ -40,6 +40,9 @@ export class ChartComponent {
     public name: string;
     public className: string;
     public chartData: any;
+    public chartLabels:Array<any>;
+    public chartOptions:any;
+    public chartColors:Array<any>;
     public chartLegend:boolean = true;
     public chartType:string = 'bar';
     @Input()
@@ -51,36 +54,42 @@ export class ChartComponent {
             {data: [-1.68, 4.18, -2.3], label: 'wunderground'}
         ];
     };
-    public chartLabels:Array<any> = ['Kiev', 'Rivne', 'Lutsk'];
-    public chartOptions:any = {
-        responsive: true
-    };
-    public chartColors:Array<any> = [
-        { // pink
-            backgroundColor: '#ffbac7',
-            borderColor: '#ff1744',
-            pointBackgroundColor: '#ff1744',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#ff1744'
-        },
-        { // green
-            backgroundColor: '#e1f0d1',
-            borderColor: '#9ccc65',
-            pointBackgroundColor: '#9ccc65',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#9ccc65'
-        },
-        { // blue
-            backgroundColor: '#bde0fb',
-            borderColor: '#2196f3',
-            pointBackgroundColor: '#2196f3',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#2196f3'
-        }
-    ];
+    public getChartLabels() {
+        return ['Kiev', 'Rivne', 'Lutsk'];
+    }
+     public getChartOptions() {
+         return {
+             responsive: true
+         };
+     }
+     public getChartColors() {
+         return [
+             { // pink
+                 backgroundColor: '#ffbac7',
+                 borderColor: '#ff1744',
+                 pointBackgroundColor: '#ff1744',
+                 pointBorderColor: '#fff',
+                 pointHoverBackgroundColor: '#fff',
+                 pointHoverBorderColor: '#ff1744'
+             },
+             { // green
+                 backgroundColor: '#e1f0d1',
+                 borderColor: '#9ccc65',
+                 pointBackgroundColor: '#9ccc65',
+                 pointBorderColor: '#fff',
+                 pointHoverBackgroundColor: '#fff',
+                 pointHoverBorderColor: '#9ccc65'
+             },
+             { // blue
+                 backgroundColor: '#bde0fb',
+                 borderColor: '#2196f3',
+                 pointBackgroundColor: '#2196f3',
+                 pointBorderColor: '#fff',
+                 pointHoverBackgroundColor: '#fff',
+                 pointHoverBorderColor: '#2196f3'
+             }
+         ];
+     }
 
     public cities = [
         {id: 1, name: "Kiev"},
@@ -113,5 +122,7 @@ export class ChartComponent {
         this.name = "Current Weather Chart";
         this.className = "current-chart";
         this.chartData = this.getChartData();
+        this.chartLabels = this.getChartLabels();
+        this.chartColors = this.getChartColors();
     }
 }
