@@ -9,6 +9,8 @@ import { ContainerComponent } from '../components/container.component';
 import { MapComponent } from '../components/map.component';
 import { MapService } from "../services/map.service";
 import { ContactFormComponent } from "../components/contactForm.component";
+import { sideNavComponent } from "../components/sideNav.component";
+
 
 @NgModule({
     imports: [
@@ -21,7 +23,8 @@ import { ContactFormComponent } from "../components/contactForm.component";
         HeaderComponent,
         ContainerComponent,
         MapComponent,
-        ContactFormComponent
+        ContactFormComponent,
+        sideNavComponent
     ],
     providers: [
         MapService
