@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from '../components/app.component';
 import { HeaderComponent } from '../components/header.component';
+import { SideNavComponent } from '../components/sideNav.component';
 import { ContainerComponent } from '../components/container.component';
 import { MapComponent } from '../components/map.component';
 import { MapService } from "../services/map.service";
@@ -21,6 +22,7 @@ import { CurrentWeatherService } from "../services/currentWeather.service";
     declarations: [
         AppComponent,
         HeaderComponent,
+        SideNavComponent,
         ContainerComponent,
         MapComponent,
         ContactFormComponent,
