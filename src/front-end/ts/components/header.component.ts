@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
             <h2>Header template</h2>
             <side-nav></side-nav>
         </header>`
+
 })
 export class HeaderComponent { }
