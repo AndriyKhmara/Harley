@@ -13,7 +13,7 @@ export class CurrentWeatherService {
         this.currentWeatherUrl = "/weather/v01/current";
     }
 
-    public getWeatherData() :Observable<any[]> {
+    public getWeatherData() : Observable<any[]> {
         return this.http.get(this.currentWeatherUrl)
             .map(this.extractData)
             .catch(this.handleError);

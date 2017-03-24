@@ -14,12 +14,11 @@
                 </ul>
                 <div>
                 <label>select city</label>
-                <select [(ngModel)]="selectedCity" (ngModelChange)="onChangeCity($event)">
+                <select [(ngModel)]="selectedCity" (ngModelChange)="updateChart($event)">
                     <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
                 </select>
-                <!--{{selectedCity | json}}-->
                 <label>select params</label>
-                <select [(ngModel)]="selectedParam" (ngModelChange)="onChangeParam($event)">
+                <select [(ngModel)]="selectedParam" (ngModelChange)="updateChart($event)">
                     <option *ngFor="let param of params" [ngValue]="param">{{param.name}}</option>
                 </select>
                 </div>
@@ -44,6 +43,8 @@
         public chartColors:Array<any>;
         public chartLegend:boolean = true;
         public chartType:string = 'bar';
+        public selectedParam:any;
+        public selectedCity:any;
         @Input()
         public weather:any;
 
@@ -55,7 +56,8 @@
             ];
         };
         public getChartLabels(){
-            return [this.selectedCity.name]
+            let label = "LABEL";
+            return [label]
         }
 
         public getChartOptions() {
@@ -98,28 +100,15 @@
             {id: 2, name: "Rivne"},
             {id: 3, name: "Lutsk"}
         ];
-        selectedCity = this.cities[1];
-        onChangeCity(newCity) {
-            console.log("city:", newCity.name);
-            this.selectedCity = newCity;
-        }
-
         public params = [
             {id: 1, name: "wind speed"},
             {id: 2, name: "temperature"},
             {id: 3, name: "humidity"}
         ];
-        selectedParam = this.params[1];
 
-        onChangeParam(newParam) {
-            console.log("param:", newParam.name);
-            this.selectedCity = newParam;
-        }
-
-        ngOnChanges() {
-            console.log("city:", this.selectedCity.name);
-            console.log("param:", this.selectedParam.name);
-            return this.selectedCity.name;
+        updateChart(newCity) {
+            console.log("city:", this.selectedCity);
+            console.log("param:", this.selectedParam);
         }
 
         constructor() {
