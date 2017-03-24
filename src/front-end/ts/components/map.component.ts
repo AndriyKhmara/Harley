@@ -186,7 +186,7 @@ export class MapComponent implements OnChanges {
         markers.forEach(function (item, i, arr) {
             if (item.sourceAPI === "darkSky") {
                 let message = '<h4>'+ item.cityName + '</h4><ul><li>Temperature: <b>' + item.temp + '&deg;C</b></li><li>Pressure: <b>' + item.pressure +
-                                 + ' mm Hg</b></li><li>Humidity: <b>' + item.humidity + ' %</b></li><li>Wind speed: <b>' + item.windSpeed + ' meter/sec</b></li></ul>'
+                           + ' mm Hg</b></li><li>Humidity: <b>' + item.humidity + ' %</b></li><li>Wind speed: <b>' + item.windSpeed + ' meter/sec</b></li></ul>'
                 L.marker([item.coords.lat, item.coords.lon]).addTo(map)
               .bindPopup(message)
               .openPopup();
@@ -198,6 +198,6 @@ export class MapComponent implements OnChanges {
     }
 
     ngOnChanges() {
-        console.log("renderMarkers");
+        console.log(this.weather);
     }
 }
