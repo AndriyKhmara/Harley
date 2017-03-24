@@ -11,8 +11,14 @@ import { ContainerComponent } from '../components/container.component';
 import { MapComponent } from '../components/map.component';
 import { MapService } from "../services/map.service";
 import { ContactFormComponent } from "../components/contactForm.component";
+import { DatepickerDemoComponent } from "../components/datepicker.component";
+import { DropdownComponent } from "../components/dropdown.component";
+import { RodiobuttonComponent } from "../components/radiobutton.component";
 import { ChartComponent } from "../components/chart.component";
 import { CurrentWeatherService } from "../services/currentWeather.service";
+import { DatepickerModule } from 'ng2-bootstrap';
+import { DropdownModule } from 'ng2-bootstrap';
+import { ButtonsModule } from 'ng2-bootstrap';
 
 
 
@@ -22,7 +28,11 @@ import { CurrentWeatherService } from "../services/currentWeather.service";
         HttpModule,
         FormsModule,
         ChartsModule,
-        SelectModule
+        SelectModule,
+        DatepickerModule.forRoot(),
+        DropdownModule.forRoot(),
+        ButtonsModule.forRoot()
+
     ],
     declarations: [
         AppComponent,
@@ -31,7 +41,10 @@ import { CurrentWeatherService } from "../services/currentWeather.service";
         ContainerComponent,
         MapComponent,
         ContactFormComponent,
-        ChartComponent
+        ChartComponent,
+        DatepickerDemoComponent,
+        DropdownComponent,
+        RodiobuttonComponent
     ],
     providers: [
         MapService,

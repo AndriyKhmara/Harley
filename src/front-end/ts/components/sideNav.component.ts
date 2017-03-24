@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 declare var $:any;
+import { DatepickerDemoComponent } from "./datepicker.component"
+
+
 
 @Component({
     selector: 'side-nav',
@@ -11,7 +14,11 @@ declare var $:any;
                 <div class="burger-brick"></div>
             </div>
             <div class="side-nav">
-                <a href="javascript:void(0)" class="close-btn">&times;</a>                                
+                <a href="javascript:void(0)" class="close-btn">&times;</a>
+               <buttons-radio></buttons-radio>
+                <datepicker-demo></datepicker-demo>
+                <datepicker-demo></datepicker-demo>
+
             </div>            
         </div>`,
 
