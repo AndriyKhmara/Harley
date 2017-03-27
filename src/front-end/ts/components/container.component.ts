@@ -7,7 +7,6 @@ import { CurrentWeatherService } from '../services/currentWeather.service'
     template: `
         <div>
             <map [weather]="weatherData"></map>
-            <contact-form></contact-form>
             <chart [weather]="weatherData"></chart>
         </div>
     `
