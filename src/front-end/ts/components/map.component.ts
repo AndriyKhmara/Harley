@@ -185,7 +185,6 @@ export class MapComponent implements OnChanges {
         L.control.scale().addTo(map);
 
         this.mapService.map = map;
-        console.log("MockWeather", this.mockWeather)
     }
 
     ngOnChanges() {
@@ -194,7 +193,6 @@ export class MapComponent implements OnChanges {
         if (markers.destination) {
            return false;
         }
-        console.log("MARKERS:", markers);
         markers.forEach(function (item, i, arr) {
             if (item.sourceAPI === "darkSky") {
                 let message = '<h4>'+ item.cityName + '</h4><ul><li>Temperature: <b>' + item.temp + '&deg;C</b></li><li>Pressure: <b>' + item.pressure +

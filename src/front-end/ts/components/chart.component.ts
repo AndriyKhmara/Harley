@@ -29,6 +29,7 @@
                 [options]="chartOptions"
                 [colors]="chartColors"
                 [legend]="chartLegend"></canvas>
+                 
             </div>
         </div>
     </div>`
@@ -51,8 +52,8 @@
         constructor() {
             this.name = "Current Weather Chart";
             this.className = "current-chart";
-            this.chartData = [];
-            this.chartLabels = [];
+            this.chartData = [3, 5, 7];
+            this.chartLabels = [2, 2, 1];
             this.chartColors = this.getChartColors();
             this.chartType = "bar";
             this.chartOptions = this.getChartOptions();
@@ -63,7 +64,6 @@
             // if (!this.weather[0]) {
             //    return false;
             // }
-
             let result = [];
             this.weather.forEach(function (item) {
                 if (item.cityName === this.selectedCity.name) {
@@ -124,8 +124,6 @@
         ];
 
         updateChart(newCity) {
-            console.log("city:", this.selectedCity);
-            console.log("param:", this.selectedParam);
             this.getChartData();
         }
 

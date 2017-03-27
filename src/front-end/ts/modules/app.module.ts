@@ -10,8 +10,8 @@ import { SideNavComponent } from '../components/sideNav.component';
 import { ContainerComponent } from '../components/container.component';
 import { MapComponent } from '../components/map.component';
 import { MapService } from "../services/map.service";
-import { ContactFormComponent } from "../components/contactForm.component";
 import { ChartComponent } from "../components/chart.component";
+import { BarChartDemoComponent } from "../components/testBarChart.component";
 import { CurrentWeatherService } from "../services/currentWeather.service";
 
 
@@ -30,8 +30,8 @@ import { CurrentWeatherService } from "../services/currentWeather.service";
         SideNavComponent,
         ContainerComponent,
         MapComponent,
-        ContactFormComponent,
-        ChartComponent
+        ChartComponent,
+        BarChartDemoComponent
     ],
     providers: [
         MapService,

@@ -7,8 +7,8 @@ import { CurrentWeatherService } from '../services/currentWeather.service'
     template: `
         <div>
             <map [weather]="weatherData"></map>
-            <contact-form></contact-form>
-            <chart [weather]="weatherData"></chart>
+            <chart-demo [weather]="weatherData"></chart-demo>
+            <!--<chart [weather]="weatherData"></chart>-->
         </div>
     `
 })
@@ -19,7 +19,11 @@ export class ContainerComponent{
         this.weatherData = [{cityName: "No city", sourceAPI: "no API"}];
         this.weatherData = currentWeatherService.getWeatherData()
             .subscribe(
-                data => this.weatherData = data,
+                data => {
+                    this.weatherData = data;
+                    console.log("subscribe", this.weatherData);
+                }
+                ,
                 error =>  console.log(error)
             );
     }
