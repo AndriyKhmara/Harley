@@ -4,7 +4,7 @@ import { MapService } from '../services/map.service';
 @Component({
     selector: 'map',
     template: `<div><div id="map"></div></div>`,
-    styles:['#map{width:65%; height:35vh; margin:0 auto; z-index:-11111;}']
+    styles:['#map{width:65%; height:400px; margin:0 auto; z-index:200;}']
 
 })
 
@@ -12,6 +12,7 @@ export class MapComponent implements OnChanges {
     @Input()
     public weather: any;
     public mockWeather: any;
+    //public map: any;
 
     constructor(private mapService: MapService) {
         this.mockWeather = [
@@ -183,22 +184,24 @@ export class MapComponent implements OnChanges {
         L.control.layers(this.mapService.baseMaps).addTo(map);
         L.control.scale().addTo(map);
 
-        var markers = this.mockWeather;
-        markers.forEach(function (item, i, arr) {
-            if (item.sourceAPI === "darkSky") {
-                let message = '<h4>'+ item.cityName + '</h4><ul><li>Temperature: <b>' + item.temp + '&deg;C</b></li><li>Pressure: <b>' + item.pressure +
-                                 + ' mm Hg</b></li><li>Humidity: <b>' + item.humidity + ' %</b></li><li>Wind speed: <b>' + item.windSpeed + ' meter/sec</b></li></ul>'
-                L.marker([item.coords.lat, item.coords.lon]).addTo(map)
-              .bindPopup(message)
-              .openPopup();
-            }
-        });
-
         this.mapService.map = map;
         console.log("MockWeather", this.mockWeather)
     }
 
     ngOnChanges() {
-        console.log("renderMarkers");
+      let map = this.mapService.map;
+        var markers = this.weather;
+        if (markers.destination) {
+           return false;
+        }
+        console.log("MARKERS:", markers);
+        markers.forEach(function (item, i, arr) {
+            if (item.sourceAPI === "darkSky") {
+                let message = '<h4>'+ item.cityName + '</h4><ul><li>Temperature: <b>' + item.temp + '&deg;C</b></li><li>Pressure: <b>' + item.pressure +
+                           ' mm Hg</b></li><li>Humidity: <b>' + item.humidity + ' %</b></li><li>Wind speed: <b>' + item.windSpeed + ' meter/sec</b></li></ul>'
+                L.marker([item.coords.lat, item.coords.lon]).addTo(map)
+              .bindPopup(message);
+            }
+        });
     }
 }
