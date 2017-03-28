@@ -30,6 +30,12 @@ api.use( [
     handleError
 ] );
 
+const authCheckMiddleware = require('./models/authCheckModel');
+app.use('/api', authCheckMiddleware);
+
+const apiRoutes = require('./routes/api');
+app.use('/api', apiRoutes);
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -49,7 +55,7 @@ app.post("/login", passport.authenticate('local-login', { failWithError: true })
     res.json(req.user);
 });
 
-app.post("/logout", function(req, res) {
+app.get("/logout", function(req, res) {
     req.logOut();
     res.send(200);
 });
@@ -81,8 +87,7 @@ app.post("/signup", function(req, res, next) {
     });
 });
 
-app.get("/users", function (req, res) {
-    res.send("hello " + req.session.passport.user.username + "<br/><a href=\"/logout\">Logout</a>");
+app.get("/profile", function (req, res) {
 });
 
 // route to mock data with services statistics per day

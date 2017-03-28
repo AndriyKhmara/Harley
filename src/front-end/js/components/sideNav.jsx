@@ -5,6 +5,7 @@ import Auth from "../modules/auth.jsx";
 import {CHART_TYPES} from "./../constants/constants.jsx";
 import { changeChartTypeAction, changeCityAction, changeDateFromAction, changeDateToAction, changeStatTypeAction } from "./../actions/chartActions.jsx";
 import { getStatisticsDataAction } from "./../actions/dataActions.jsx";
+import UserProfile  from "./profileComponent.jsx";
 
 export default class SideNav extends React.Component {
     constructor(props, context) {
@@ -19,6 +20,9 @@ export default class SideNav extends React.Component {
         this.handleModalClose = this.handleModalClose.bind(this);
         this.handleModalOpen = this.handleModalOpen.bind(this);
         this.getInitialState = this.getInitialState.bind(this);
+        this.processForm = this.processForm.bind(this);
+        this.processSignUpForm = this.processSignUpForm.bind(this);
+        this.checkLogined = this.checkLogined.bind(this);
         this.state = props.chartState;
 
         super(props, context);
@@ -34,6 +38,7 @@ export default class SideNav extends React.Component {
         this.state = {
             errors: {},
             successMessage,
+            secretData: '',
             user: {
                 username: '',
                 password: ''
@@ -43,6 +48,27 @@ export default class SideNav extends React.Component {
         this.processForm = this.processForm.bind(this);
         this.changeUser = this.changeUser.bind(this);
 
+    }
+
+    componentDidMount() {
+        this.checkLogined();
+    }
+
+    checkLogined() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('get', '/api/profile');
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('Authorization', `${Auth.getToken()}`);
+        xhr.responseType = 'json';
+        xhr.addEventListener('load', () => {
+            if (xhr.status === 200) {
+                this.setState({
+                    secretData: xhr.response.message,
+                    username: xhr.response.username
+                });
+            }
+        });
+        xhr.send();
     }
 
     processForm(event) {
@@ -65,30 +91,25 @@ export default class SideNav extends React.Component {
                     errors: {}
                 });
                 if (xhr.response.alert) {
-                    console.log(xhr.response.alert);
+                    errors.summary = xhr.response.alert;
+                    this.setState({
+                        errors
+                    });
                 } else {
                     Auth.authenticateUser(xhr.response);
                 }
-
-                // console.log(xhr.response);
             }
-            // } else {
-            //     const errors = xhr.response.errors ? xhr.response.errors : {};
-            //
-            //     errors.summary = xhr.response.message;
-            //     this.setState({
-            //         errors
-            //     });
-            // }
+            //TODO: define, why no 404 from server
+            else {
+                const errors = xhr.response.errors ? xhr.response.errors : {};
+                errors.summary = xhr.response.alert;
+                this.setState({
+                    errors
+                });
+            }
         });
         xhr.send(formData);
     }
-
-    /**
-     * Change the user object.
-     *
-     * @param {object} event - the JavaScript event object
-     */
     changeUser(event) {
         const field = event.target.name;
         const user = this.state.user;
@@ -99,8 +120,44 @@ export default class SideNav extends React.Component {
         });
     }
 
+    processSignUpForm(event) {
+        // prevent default action. in this case, action is the form submission event
+        event.preventDefault();
 
+        // create a string for an HTTP body message
+        const name = encodeURIComponent(this.state.user.username);
+        const password = encodeURIComponent(this.state.user.password);
+        const formData = `username=${name}&password=${password}`;
 
+        // create an AJAX request
+        const xhr = new XMLHttpRequest();
+        xhr.open('post', '/signup');
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.responseType = 'json';
+        xhr.addEventListener('load', () => {
+            if (xhr.status === 200) {
+                this.setState({
+                    errors: {}
+                });
+                localStorage.setItem('successMessage', xhr.response.alert);
+                if (xhr.response.alert) {
+
+                    errors.summary = xhr.response.alert;
+                    this.setState({
+                        errors
+                    });
+                }
+            } else {
+                const errors = xhr.response.errors ? xhr.response.errors : {};
+                errors.summary = xhr.response.message;
+
+                this.setState({
+                    errors
+                });
+            }
+        });
+        xhr.send(formData);
+    }
 
     getInitialState() {
         return { showModal: false };
@@ -146,7 +203,6 @@ export default class SideNav extends React.Component {
 
 
     render () {
-        console.log(this.state);
         let close = () => this.setState({ showModal: false});
         return (
             <div className={this.props.className}>
@@ -207,22 +263,49 @@ export default class SideNav extends React.Component {
                                 </Tab>
                                 <Tab eventKey={2} title="Register">
                                     <div className="col-sm-12">
-                                        <h2><span className="fa fa-sign-in"></span> Sign up</h2>
-                                        <form action="/signup" method="post">
-                                            <div className="form-group">
-                                                <label>User name</label>
-                                                <input type="text" className="form-control" name="username"/>
+                                        <form action="/" onSubmit={this.processSignUpForm}>
+                                            <h2 className="card-heading">Sign Up</h2>
+                                            {this.state.errors.summary && <p className="error-message">{this.state.errors.summary}</p>}
+                                            <div className="field-line">
+                                                <FormControl
+                                                    name="username"
+                                                    onChange={this.changeUser}
+                                                    type="text"
+                                                    value={this.state.user.username}
+                                                />
                                             </div>
-                                            <div className="form-group">
-                                                <label>Password</label>
-                                                <input type="password" className="form-control" name="password"/>
+                                            <div className="field-line">
+                                                <FormControl
+                                                    name="password"
+                                                    onChange={this.changeUser}
+                                                    type="password"
+                                                    value={this.state.user.password}
+                                                />
                                             </div>
-                                            <button type="submit" className="btn btn-warning btn-lg">
-                                                Sign Up
-                                            </button>
+
+                                            <div>
+                                                <Button className="btn btn-primary" type="submit">Create New Account</Button>
+                                            </div>
                                         </form>
                                     </div>
                                 </Tab>
+                                {
+                                    Auth.isUserAuthenticated() ?
+                                        (<Tab eventKey={3} title="Profile">
+                                            <div className="col-sm-12">
+                                                <UserProfile
+                                                    secretData={this.state.secretData}
+                                                    user={this.state.username}
+                                                />
+                                            </div>
+                                        </Tab>) : (
+                                        <Tab eventKey={4} title="test">
+                                            <div className="top-bar-right">
+                                                Unauthorized
+                                            </div>
+                                        </Tab>
+                                    )
+                                }
                             </Tabs>
                         </Modal.Body>
                         <Modal.Footer>

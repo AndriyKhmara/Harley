@@ -33,10 +33,6 @@ module.exports = function(passport) {
                 var data = {
                     name: user.username
                 };
-
-                console.log(token);
-                console.log(user);
-                console.log(JSON.stringify(user));
                 return done(null, token, data);
             });
         }
