@@ -4,19 +4,24 @@ import {Component, Input} from '@angular/core';
     template: `
     <div class="{{className}} container">
         <div class="row">
-            <div class="col-xs-12">
+            <div *ngIf="!weather[0]" class="col-xs-12 text-center paddings">Loading... Please wait.</div>
+            <div *ngIf="weather[0]" class="col-xs-12">
                 <h2>{{name}}</h2>
                 <div>
                 <label>select city</label>
-                <select [(ngModel)]="selectedCity" (ngModelChange)="updateChart($event)">
-                    <option *ngFor="let city of cities" [ngValue]="city" selected>{{city.name}}</option>
+                <select [(ngModel)]="selectedCity" (change)="getChartData()">
+                    <option *ngFor="let city of cities" [ngValue]="city.value">
+                        {{city.name}}
+                    </option>
                 </select>
                 <label>select params</label>
-                <select [(ngModel)]="selectedParam" (ngModelChange)="updateChart($event)">
-                    <option *ngFor="let param of params" [ngValue]="param" selected>{{param.name}}</option>
+                <select [(ngModel)]="selectedParam" (change)="getChartData()">
+                    <option *ngFor="let param of params" [ngValue]="param.value">
+                        {{param.name}}
+                    </option>
                 </select>
                 </div>
-                <canvas baseChart width="400" height="400"
+                <canvas baseChart
                 [chartType]="chartType"
                 [datasets]="chartData"
                 [labels]="chartLabels"
@@ -26,7 +31,10 @@ import {Component, Input} from '@angular/core';
             </div>
         </div>
     </div>`,
-    styles: ['canvas{ max-width: 50%; margin: 0 auto;}']
+    styles: [
+        'canvas{ max-width: 800px; margin: 15px auto; height:auto; max-height: 380px;}',
+        ' .paddings{padding: 15px; font-size:25px;}'
+    ]
 })
 
 export class ChartComponent {
@@ -39,9 +47,9 @@ export class ChartComponent {
     public chartLegend: boolean;
     public chartType: string;
     public params: Array<any>;
-    public selectedParam: any;
+    public selectedParam: string;
     public cities: Array<any>;
-    public selectedCity: any;
+    public selectedCity: string;
     @Input()
     public weather: any;
 
@@ -49,33 +57,43 @@ export class ChartComponent {
         this.name = "Current Weather Chart";
         this.className = "current-chart";
         this.chartType = "bar";
-        this.chartData = this.getChartData();
+        this.chartData = [
+            {data: [0], label: 'Service A'},
+            {data: [0], label: 'Service B'},
+            {data: [0], label: 'Service C'}
+        ];
         this.chartLabels = this.getChartLabels();
         this.chartOptions = this.getChartOptions();
         this.chartColors = this.getChartColors();
         this.chartLegend = true;
         this.cities = [
-            {id: 1, name: "Kiev"},
-            {id: 2, name: "Rivne"},
-            {id: 3, name: "Lutsk"}
+            {id: 1, name: "Rivne", value:"Rivne"},
+            {id: 2, name: "Kiev", value:"Kiev"},
+            {id: 3, name: "Luts'k", value:"Luts'k"}
         ];
         this.params = [
-            {id: 1, name: "wind speed", value: "windSpeed"},
-            {id: 2, name: "temperature", value: "temp"},
-            {id: 3, name: "humidity", value: "humidity"}
+            {id: 1, name: "Temperature", value: "temp"},
+            {id: 2, name: "Humidity", value: "humidity"},
+            {id: 3, name: "Wind speed", value: "windSpeed"}
         ];
-        this.selectedParam = this.cities[0];
-        this.selectedCity = this.params[0];
+        this.selectedParam = this.params[0].value;
+        this.selectedCity = this.cities[0].value;
 
     }
 
     public getChartData() {
-        let result = [
-            {data: [12], label: 'Service A'},
-            {data: [10], label: 'Service B'},
-            {data: [15], label: 'Service C'}
-        ];
-        return result;
+        let weather = new Array(this.weather);
+        let result = [];
+
+        for(let i = 0; i < weather[0].length; i++){
+            if (weather[0][i].cityName === this.selectedCity){
+                result.push({
+                    data: [weather[0][i][this.selectedParam]],
+                    label: weather[0][i].sourceAPI
+                })
+            }
+        }
+        this.chartData = result;
     };
 
     public getChartLabels() {
@@ -86,7 +104,7 @@ export class ChartComponent {
         return {
             responsive: true,
             scales: {
-                xAxes: [{
+                yAxes: [{
                     ticks: {
                         beginAtZero: true
                     }
@@ -124,11 +142,14 @@ export class ChartComponent {
         ];
     }
 
-    public updateChart(newCity) {
-        console.log("city:", this.selectedCity);
-        console.log("param:", this.selectedParam);
+    ngOnChanges() {
+        console.log(this.selectedParam);
+        console.log(this.selectedCity);
+        let data = this.weather;
+        if (data.destination) {
+            return false;
+        }
         this.getChartData();
     }
-
 
 }
