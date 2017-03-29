@@ -12,7 +12,7 @@ var http = require("http"),
     db = require("./models/dbModel");
 var api = express.Router();
 
-require('./config/passport')(passport);
+require("./config/passport")(passport);
 
 function handleError(err,req,res,next){
     var output = {
@@ -30,11 +30,11 @@ api.use( [
     handleError
 ] );
 
-const authCheckMiddleware = require('./models/authCheckModel');
-app.use('/api', authCheckMiddleware);
+const authCheckMiddleware = require("./models/authCheckModel");
+app.use("/api", authCheckMiddleware);
 
-const apiRoutes = require('./routes/api');
-app.use('/api', apiRoutes);
+const apiRoutes = require("./routes/api");
+app.use("/api", apiRoutes);
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -43,7 +43,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 app.use(session({
-    secret: 'this is the secret'
+    secret: "this is the secret"
 }));
 
 app.use(cookieParser());
@@ -51,25 +51,25 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.post("/login", passport.authenticate('local-login', { failWithError: true }), function(req, res) {
+app.post("/login", passport.authenticate("local-login", { failWithError: true }), function(req, res) {
     res.json(req.user);
 });
 
-app.get("/logout", function(req, res) {
-    req.logOut();
-    res.send(200);
-});
-
-app.get("/loggedin", function(req, res) {
-    res.send(req.isAuthenticated() ? req.user : '0');
-});
+// app.get("/logout", function(req, res) {
+//     Auth.deauthenticateUser();
+//     res.send(200);
+// });
+//
+// app.get("/loggedin", function(req, res) {
+//     res.send(req.isAuthenticated() ? req.user : "0");
+// });
 
 app.post("/signup", function(req, res, next) {
     db.User.findOne({
         username: req.body.username
     }, function(err, user) {
         if (user) {
-            res.json(null, false, {message: req.flash('alert','That user name is already taken.')});
+            res.json(null, false, req.flash("alert","That user name is already taken."));
             return;
         } else {
             var newUser = new db.User();

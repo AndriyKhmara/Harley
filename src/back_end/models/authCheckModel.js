@@ -1,16 +1,16 @@
-'use strict';
+"use strict";
 
-var jwt = require('jsonwebtoken'),
-    User = require('./userModel'),
-    config = require('../config/config.json'),
-    _ = require('underscore');
+var jwt = require("jsonwebtoken"),
+    User = require("./userModel"),
+    config = require("../config/config.json"),
+    _ = require("underscore");
 
 
 module.exports = function (req, res, next) {
     if (!req.headers.authorization) {
         return res.status(401).end();
     }
-    var token = _.first(req.headers.authorization.split(' '));
+    var token = _.first(req.headers.authorization.split(" "));
     return jwt.verify(token, config.jwtSecret, function (err, decoded) {
         console.log(err);
         if (err) {

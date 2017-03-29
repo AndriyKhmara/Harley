@@ -60,7 +60,7 @@ module.exports = (function () {
                         configsApiUrls.push({
                             name: service.name,
                             city: cityName,
-                            url: service.urlPart1 + city.xCords.toFixed(2) + ',' + city.yCords.toFixed(2)
+                            url: service.urlPart1 + city.xCords.toFixed(2) + "," + city.yCords.toFixed(2)
                         });
                         break;
                     }
