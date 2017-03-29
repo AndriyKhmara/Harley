@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'harley-header',
     template: `
         <header>
-            <h2>Header template</h2>
+            <h1>Harley <span>Weather</span></h1>
             <side-nav></side-nav>
         </header>`,
     styles:['header{ z-index:210; }']
