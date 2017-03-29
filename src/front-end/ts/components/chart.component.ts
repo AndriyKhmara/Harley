@@ -1,4 +1,6 @@
 import {Component, Input} from '@angular/core';
+import * as _ from "lodash";
+
 @Component({
     selector: 'chart',
     template: `
@@ -7,24 +9,23 @@ import {Component, Input} from '@angular/core';
             <div *ngIf="!weather[0]" class="col-xs-12 text-center paddings">Loading... Please wait.</div>
             <div *ngIf="weather[0]" class="col-xs-12">
                 <h2>{{name}}</h2>
-                <div>
-                <label>select city</label>
-                <select [(ngModel)]="selectedCity" (change)="getChartData()">
-                    <option *ngFor="let city of cities" [ngValue]="city.value">
-                        {{city.name}}
-                    </option>
-                </select>
-                <label>select params</label>
-                <select [(ngModel)]="selectedParam" (change)="getChartData()">
-                    <option *ngFor="let param of params" [ngValue]="param.value">
-                        {{param.name}}
-                    </option>
-                </select>
+                <div class="text-center">
+                    <label>select city</label>
+                    <select [(ngModel)]="selectedCity" (change)="updateChart()">
+                        <option *ngFor="let city of cities" [ngValue]="city.value">
+                            {{city.name}}
+                        </option>
+                    </select>
+                    <label>select params</label>
+                    <select [(ngModel)]="selectedParam" (change)="updateChart()">
+                        <option *ngFor="let param of params" [ngValue]="param.value">
+                            {{param.name}}
+                        </option>
+                    </select>
                 </div>
                 <canvas baseChart
                 [chartType]="chartType"
                 [datasets]="chartData"
-                [labels]="chartLabels"
                 [options]="chartOptions"
                 [colors]="chartColors"
                 [legend]="chartLegend"></canvas>
@@ -33,15 +34,14 @@ import {Component, Input} from '@angular/core';
     </div>`,
     styles: [
         'canvas{ max-width: 800px; margin: 15px auto; height:auto; max-height: 380px;}',
-        ' .paddings{padding: 15px; font-size:25px;}'
+        '.paddings{padding: 15px; font-size:25px;}'
     ]
 })
 
 export class ChartComponent {
     public name: string;
     public className: string;
-    public chartData: any;
-    public chartLabels: any;
+    public chartData: Array<any>;
     public chartOptions: any;
     public chartColors: Array<any>;
     public chartLegend: boolean;
@@ -62,7 +62,6 @@ export class ChartComponent {
             {data: [0], label: 'Service B'},
             {data: [0], label: 'Service C'}
         ];
-        this.chartLabels = this.getChartLabels();
         this.chartOptions = this.getChartOptions();
         this.chartColors = this.getChartColors();
         this.chartLegend = true;
@@ -74,46 +73,84 @@ export class ChartComponent {
         this.params = [
             {id: 1, name: "Temperature", value: "temp"},
             {id: 2, name: "Humidity", value: "humidity"},
-            {id: 3, name: "Wind speed", value: "windSpeed"}
+            {id: 3, name: "Pressure", value: "pressure"},
+            {id: 4, name: "Wind speed", value: "windSpeed"}
         ];
-        this.selectedParam = this.params[0].value;
-        this.selectedCity = this.cities[0].value;
-
-    }
-
-    public getChartData() {
-        let weather = new Array(this.weather);
-        let result = [];
-
-        for(let i = 0; i < weather[0].length; i++){
-            if (weather[0][i].cityName === this.selectedCity){
-                result.push({
-                    data: [weather[0][i][this.selectedParam]],
-                    label: weather[0][i].sourceAPI
-                })
-            }
-        }
-        this.chartData = result;
+        this.selectedParam = _.first(this.params).value;
+        this.selectedCity = _.first(this.cities).value;
     };
 
-    public getChartLabels() {
-        return ['Weather in City']
-    }
+    ngOnChanges() {
+        let data = this.weather;
+        if (data.destination) {
+            return false;
+        }
+        this.updateChart();
+    };
 
-    public getChartOptions() {
+    public updateChart(){
+        this.chartData = this.getChartData();
+        this.chartOptions = this.getChartOptions();
+    };
+
+    private getChartData() {
+        let weather = this.weather,
+            result = [],
+            city = this.selectedCity,
+            param = this.selectedParam;
+
+        _.each(weather, function(item){
+            if (item.cityName === city){
+                result.push({
+                    data: [item[param]],
+                    label: item.sourceAPI
+                })
+            }
+        });
+        return result;
+    };
+
+    private getChartOptions() {
         return {
             responsive: true,
             scales: {
                 yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
+                    ticks: this.getChartTicks()
                 }]
             }
         };
-    }
+    };
 
-    public getChartColors() {
+    private getChartTicks(){
+        let result = {
+            suggestedMin: 0,
+            suggestedMax: 0,
+            beginAtZero: true
+        };
+        switch (this.selectedParam){
+            case "temp":
+                result.suggestedMax = 30;
+                return result;
+            case "humidity":
+                result.suggestedMin = 50;
+                result.suggestedMax = 100;
+                result.beginAtZero = false;
+                return result;
+            case "pressure":
+                result.suggestedMin = 700;
+                result.suggestedMax = 1200;
+                result.beginAtZero = false;
+                return result;
+            case "windSpeed":
+                result.suggestedMin = 10;
+                result.suggestedMax = 30;
+                result.beginAtZero = false;
+                return result;
+        }
+        return result;
+    };
+
+    private getChartColors() {
         return [
             { // pink
                 backgroundColor: '#ffbac7',
@@ -140,16 +177,6 @@ export class ChartComponent {
                 pointHoverBorderColor: '#2196f3'
             }
         ];
-    }
-
-    ngOnChanges() {
-        console.log(this.selectedParam);
-        console.log(this.selectedCity);
-        let data = this.weather;
-        if (data.destination) {
-            return false;
-        }
-        this.getChartData();
-    }
+    };
 
 }
