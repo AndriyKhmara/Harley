@@ -3,8 +3,14 @@ import {MapService} from '../services/map.service';
 
 @Component({
     selector: 'map',
-    template: `<div><div id="map"></div></div>`,
-    styles: ['#map{width:65%; height:400px; margin:0 auto; z-index:200;}']
+    template: `
+    <div class="container">
+        <div class="title-block">
+           <h2>Map: current weather data by city</h2>
+        </div>
+    </div>
+    <div class="container"><div id="map"></div></div>`,
+    styles: ['#map{width:100%; height:400px; margin:0 auto; z-index:200;}']
 
 })
 
