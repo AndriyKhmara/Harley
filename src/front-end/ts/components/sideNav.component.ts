@@ -6,7 +6,7 @@ import * as _ from "lodash";
 @Component({
     selector: 'side-nav',
     template: `
-        <div class="{{status}}">
+        <div class="{{status}}"> 
             <div class="col-xs-12">
                 <h2 class="text-center">Get detailed info about weather</h2> 
                 <p class="text-justify">
@@ -19,27 +19,30 @@ import * as _ from "lodash";
                 </div>
                 <div class="content text-center">
                     <label>City:</label>
-                    <div class="btn-group" role="group">
-                      <button type="button" class="btn btn-primary" [ngClass]="{'active': city === 'Rivne'}" 
+                    <div role="group">
+                      <button type="button" class="btn btn-success" [ngClass]="{'active': city === 'Rivne'}" 
                       (click)="setSelectedCity('Rivne')">Rivne</button>
-                      <button type="button" class="btn btn-primary" [ngClass]="{'active': city === 'Kiev'}" 
+                      <button type="button" class="btn btn-success" [ngClass]="{'active': city === 'Kiev'}" 
                       (click)="setSelectedCity('Kiev')">Kiev</button>
-                      <button type="button" class="btn btn-primary" [ngClass]="{'active': city === 'Lutsk'}" 
+                      <button type="button" class="btn btn-success" [ngClass]="{'active': city === 'Lutsk'}" 
                       (click)="setSelectedCity('Lutsk')">Luts'k</button>
                     </div>
                     <hr/>
                     <label>Parameter:</label>
-                    <select [(ngModel)]="selectedParam">
+                    <select class="form-control" [(ngModel)]="selectedParam">
                         <option *ngFor="let param of params" [ngValue]="param.value">
                             {{param.name}}
                         </option>
                     </select>
                     <hr/>
+                    <div class="form-group">
                     <label>Period from:</label>
-                    <input type="date" name="date-from" [(ngModel)]="dateFrom"/>
+                    <input type="date" class="form-control" name="date-from" [(ngModel)]="dateFrom"/>
+                    </div>
+                    <div class="form-group">
                     <label>Period to:</label>
-                    <input type="date" name="date-to" [(ngModel)]="dateTo"/>
-                    <hr/>  
+                    <input type="date" class="form-control" name="date-to" [(ngModel)]="dateTo"/>
+                    </div>
                     <button class="btn-success btn-lg" (click)="getChartData()">Show</button>
                 </div>
             </div>            
