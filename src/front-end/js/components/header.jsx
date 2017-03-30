@@ -25,7 +25,6 @@ export default class Header extends React.Component {
     }
 
     render() {
-        //console.log("header", this.props);
         return (
             <header>
                 <div className="nav">
@@ -45,11 +44,9 @@ export default class Header extends React.Component {
                 </div>
                 <div className={this._getSideNavClassName()}></div>
                 <SideNav
-                    authError={this.props.authError}
                     chartState={this.props.chartState}
                     className={this._getSideNavClassName()}
-                    userName={this.props.userName}
-                    userPassword={this.props.userPassword}
+                    profileSettings={this.props.profileSettings}
                 />
             </header>
         );
@@ -58,7 +55,5 @@ export default class Header extends React.Component {
 
 Header.propTypes = {
     chartState: React.PropTypes.object,
-    authError: React.PropTypes.object,
-    userName: React.PropTypes.string,
-    userPassword: React.PropTypes.string
+    profileSettings: React.PropTypes.object
 };

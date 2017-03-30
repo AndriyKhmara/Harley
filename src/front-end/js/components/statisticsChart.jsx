@@ -44,9 +44,10 @@ export default class StatChart extends React.Component{
         return timeLabel;
     }
     render(){
+        console.log(this.props);
         //TODO: change this to props after other guys will do action :)
         let serviceList = ["openWeather", "wunderground", "darkSky"];
-        let colorsList = ["#FFC300", "#C70039", "#581845"];
+        let colorsList = this.props.profileSettings.chartColors;
         let dataSet = [];
         { serviceList.map((service, index) => {
             dataSet.push({
@@ -93,5 +94,6 @@ export default class StatChart extends React.Component{
 
 StatChart.propTypes = {
     statistics: React.PropTypes.array,
-    chartType: React.PropTypes.string
+    chartType: React.PropTypes.string,
+    profileSettings: React.PropTypes.object
 };

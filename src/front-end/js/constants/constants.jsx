@@ -22,7 +22,9 @@ export const ACTION_TYPES = {
     GET_USER_CREDENTIALS: "get_user_credentials",
     SET_USER_EMAIL: "set_user_email",
     SET_USER_PASSWORD: "set_user_password",
-    SET_AUTH_ERROR: "set_auth_error"
+    SET_AUTH_ERROR: "set_auth_error",
+    SET_USER_NAME: "set_user_name",
+    GET_COLORS_FOR_CHART: "get_colors_for_chart"
 };
 
 export const CHART_PARAMS = {

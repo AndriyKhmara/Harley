@@ -4,6 +4,7 @@ import Header from "./components/header.jsx";
 import Content from "./components/content.jsx";
 import Footer from "./components/footer.jsx";
 import { getWeatherData, getStatisticsDataAction, getLeafletData } from "./actions/dataActions.jsx";
+import { getProfileSettings } from "./actions/profileAction.jsx";
 import store from "./stores/harleyStore.jsx";
 
 class Harley extends React.Component {
@@ -16,6 +17,7 @@ class Harley extends React.Component {
         this.state = store.getState();
         getWeatherData();
         getLeafletData();
+        getProfileSettings();
         getStatisticsDataAction(this.state.chart.periodFrom, this.state.chart.periodTo, this.state.chart.cityName);
     }
 
@@ -27,15 +29,14 @@ class Harley extends React.Component {
         return (
             <div className="row">
                 <Header
-                    authError={this.state.authError}
                     chartState={this.state.chart}
-                    userName={this.state.userName}
-                    userPassword={this.state.userPassword}
+                    profileSettings={this.state.profileSettings}
                 />
                 <Content
                     chartType={this.state.chart.chartType}
                     currentChart={this.state.currentChart}
                     leaflet={this.state.leaflet.leaflet}
+                    profileSettings={this.state.profileSettings}
                     statistics={this.state.statistics.statistics}
                     weather={this.state.weather.weather}
                 />

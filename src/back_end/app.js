@@ -14,27 +14,11 @@ var api = express.Router();
 
 require("./config/passport")(passport);
 
-function handleError(err,req,res,next){
-    var output = {
-        error: {
-            name: err.name,
-            message: err.message,
-            text: err.toString()
-        }
-    };
-    var statusCode = err.status || 500;
-    res.status(statusCode).json(output);
-}
-
-api.use( [
-    handleError
-] );
-
 const authCheckMiddleware = require("./models/authCheckModel");
-app.use("/api", authCheckMiddleware);
+app.use("/user/v01", authCheckMiddleware);
 
 const apiRoutes = require("./routes/api");
-app.use("/api", apiRoutes);
+app.use("/user/v01", apiRoutes);
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -55,15 +39,6 @@ app.post("/login", passport.authenticate("local-login", { failWithError: true })
     res.json(req.user);
 });
 
-// app.get("/logout", function(req, res) {
-//     Auth.deauthenticateUser();
-//     res.send(200);
-// });
-//
-// app.get("/loggedin", function(req, res) {
-//     res.send(req.isAuthenticated() ? req.user : "0");
-// });
-
 app.post("/signup", function(req, res, next) {
     db.User.findOne({
         username: req.body.username
@@ -75,6 +50,9 @@ app.post("/signup", function(req, res, next) {
             var newUser = new db.User();
             newUser.username = req.body.username.toLowerCase();
             newUser.password = newUser.generateHash(req.body.password);
+            newUser.userSetting = {
+                colors: ["#FFC300", "#C70039", "#581845"]
+            };
             newUser.save(function(err, user) {
                 req.login(user, function(err) {
                     if (err) {
@@ -85,9 +63,6 @@ app.post("/signup", function(req, res, next) {
             });
         }
     });
-});
-
-app.get("/profile", function (req, res) {
 });
 
 // route to mock data with services statistics per day

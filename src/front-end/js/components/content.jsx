@@ -14,6 +14,7 @@ export default class Content extends React.Component {
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <StatChart
                             chartType={this.props.chartType}
+                            profileSettings={this.props.profileSettings}
                             statistics={this.props.statistics}
                         />
                     </div>
@@ -43,6 +44,7 @@ export default class Content extends React.Component {
 
 Content.propTypes = {
 leaflet: React.PropTypes.object,
+profileSettings: React.PropTypes.object,
 statistics: React.PropTypes.array,
 weather: React.PropTypes.array,
 currentChart: React.PropTypes.object,

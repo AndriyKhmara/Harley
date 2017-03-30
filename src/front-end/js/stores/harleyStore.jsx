@@ -3,7 +3,7 @@ import {createStore} from "redux";
 import {CHART_TYPES, CHART_PARAMS} from "./../constants/constants.jsx";
 
 let date = new Date();
-let firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).toISOString();
+let firstDayOfMonth = new Date(date.getFullYear(), date.getMonth() - 2, 1).toISOString();
 let lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString();
 
 let store = createStore(harleyReducer, {
@@ -13,6 +13,10 @@ let store = createStore(harleyReducer, {
         periodFrom: firstDayOfMonth,
         periodTo: lastDayOfMonth,
         statType: CHART_TYPES.TEMPERATURE
+    },
+    profileSettings: {
+        username: "",
+        chartColors: ["#FFC300", "#C70039", "#581845"]
     },
     currentChart:{
         chartCity: "Rivne",
@@ -26,10 +30,7 @@ let store = createStore(harleyReducer, {
     },
     leaflet: {
         leaflet: {}
-    },
-    userName: "",
-    userPassword: "",
-    authError: {}
+    }
 });
 
 export default store;

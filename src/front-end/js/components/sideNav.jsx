@@ -53,8 +53,9 @@ export default class SideNav extends React.Component {
         return (
             <div className={this.props.className}>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-                    <AuthModal/>
+                    <AuthModal
+                        profileSettings={this.props.profileSettings}
+                    />
                     <form>
                         <h3 className="">Show information</h3>
                         <FormGroup>
@@ -117,5 +118,6 @@ export default class SideNav extends React.Component {
 
 SideNav.propTypes = {
     className: React.PropTypes.string,
+    profileSettings: React.PropTypes.object,
     chartState: React.PropTypes.object
 };

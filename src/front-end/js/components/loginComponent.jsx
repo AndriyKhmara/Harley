@@ -48,7 +48,7 @@ export default class LoginComponent extends React.Component {
                     });
                 } else {
                     Auth.authenticateUser(xhr.response);
-                    window.location.href = '/';
+                    window.location.href = "/";
                 }
             }
             else {
@@ -70,19 +70,17 @@ export default class LoginComponent extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div className="col-sm-12">
                 <form action="/"
-                      onSubmit={this.handleProcessForm}
+                    onSubmit={this.handleProcessForm}
                 >
-                    <h2 className="card-heading">Login</h2>
-
                     {this.state.errors.incorrectUserName ?
                     <p className="success-message">{this.state.errors.incorrectUserName}</p> :
                         <p className="error-message">{this.state.errors.incorrectPassword}</p>
                     }
                     <div className="field-line">
+                        <label>Enter your name</label>
                         <FormControl
                             name="username"
                             onChange={this.handleChangeUser}
@@ -91,6 +89,7 @@ export default class LoginComponent extends React.Component {
                         />
                     </div>
                     <div className="field-line">
+                        <label>Enter your password</label>
                         <FormControl
                             name="password"
                             onChange={this.handleChangeUser}
@@ -100,15 +99,14 @@ export default class LoginComponent extends React.Component {
                     </div>
 
                     <div className="button-line">
-                        <Button type="submit"
-                            className="primary"
+                        <Button
+                            className="btn-primary"
+                            type="submit"
                         >
                             Log in
                         </Button>
                     </div>
-
                 </form>
-
             </div>
         );
     }

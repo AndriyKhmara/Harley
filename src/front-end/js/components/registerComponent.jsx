@@ -6,14 +6,10 @@ export default class RegisterComponent extends React.Component {
         super(props);
         this.handleProcessSignUpForm = this.handleProcessSignUpForm.bind(this);
         this.handleChangeUser = this.handleChangeUser.bind(this);
-
-
-
         this.state = {
             showModal: false,
             errors: {},
             successMessage: "",
-            secretData: "",
             user: {
                 username: "",
                 password: ""
@@ -71,11 +67,12 @@ export default class RegisterComponent extends React.Component {
         return (
             <div className="col-sm-12">
                 <form action="/"
-                      onSubmit={this.handleProcessSignUpForm}
+                    onSubmit={this.handleProcessSignUpForm}
                 >
                     {this.state.successMessage &&
                     <p className="error-message">{this.state.successMessage}</p>}
                     <div className="field-line">
+                        <label>Enter your name</label>
                         <FormControl
                             name="username"
                             onChange={this.handleChangeUser}
@@ -84,6 +81,7 @@ export default class RegisterComponent extends React.Component {
                         />
                     </div>
                     <div className="field-line">
+                        <label>Enter your password</label>
                         <FormControl
                             name="password"
                             onChange={this.handleChangeUser}
@@ -93,7 +91,7 @@ export default class RegisterComponent extends React.Component {
                     </div>
                     <div>
                         <Button className="btn btn-primary"
-                                type="submit"
+                            type="submit"
                         >
                             Create New Account
                         </Button>

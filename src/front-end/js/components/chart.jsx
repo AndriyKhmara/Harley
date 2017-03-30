@@ -51,19 +51,8 @@ export default class Chart extends React.Component {
                 }]
             }
         };
-        //TODO: this do not work properly
-        // options.scales.yAxes[0].ticks.max = this._getMaximalValue(param);
-        // if (param === CHART_PARAMS.TEMPERATURE.LABEL){
-        //     console.log(param, "<>", CHART_PARAMS.TEMPERATURE.LABEL);
-        //    options.scales.yAxes[0].ticks.min = CHART_PARAMS.TEMPERATURE.MIN;
-        // } else {
-        //     delete options.scales.yAxes[0].ticks.min;
-        // }
         return options
     }
-
-    // specially for 3/4 guy
-    //return false ? (<div>Hi</div>) : (<div>Bye</div>);
 
     _getServicesByCity(){
         let services = [];

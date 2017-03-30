@@ -9,34 +9,13 @@ export default class AuthModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showModal: false,
-            secretData: ""
+            showModal: false
         }
     }
-
-    componentDidMount() {
-        const xhr = new XMLHttpRequest();
-        xhr.open("get", "/api/profile");
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.setRequestHeader("Authorization", `${Auth.getToken()}`);
-        xhr.responseType = "json";
-        xhr.addEventListener("load", () => {
-            if (xhr.status === 200) {
-                this.setState({
-                    secretData: xhr.response.message,
-                    username: xhr.response.username
-                });
-            }
-        });
-        xhr.send();
-    }
-
-
     render() {
-        console.log(this.state);
         let close = () => this.setState({showModal: false});
         return (
-            <div>
+            <div className="auth-wrapper">
                 <button
                     className="btn btn-info"
                     onClick={() => this.setState({showModal: true})}
@@ -49,11 +28,6 @@ export default class AuthModal extends React.Component {
                     onHide={close}
                     show={this.state.showModal}
                 >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title">
-                            Log In / Register
-                        </Modal.Title>
-                    </Modal.Header>
                     <Modal.Body>
                         {
                             Auth.isUserAuthenticated() ?
@@ -62,33 +36,31 @@ export default class AuthModal extends React.Component {
                                         id="profile-form"
                                     >
                                         <Tab eventKey={1}
-                                             title="Profile"
+                                            title="Profile"
                                         >
                                             <div className="col-sm-12">
                                                 <UserProfile
-                                                    secretData={this.state.secretData}
-                                                    user={this.state.username}
+                                                    profileSettings={this.props.profileSettings}
                                                 />
                                             </div>
                                         </Tab>
                                     </Tabs>) : (
                                 <Tabs defaultActiveKey={1}
-                                      id="login-form"
+                                    id="login-form"
                                 >
                                     <Tab eventKey={1}
-                                         title="Log In"
+                                        title="Log In"
                                     >
                                         <LoginComponent/>
                                     </Tab>
                                     <Tab eventKey={2}
-                                         title="Register"
+                                        title="Register"
                                     >
                                         <RegisterComponent/>
                                     </Tab>
                                 </Tabs>
                             )
                         }
-
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={close}>Close</Button>
@@ -102,5 +74,6 @@ export default class AuthModal extends React.Component {
 
 AuthModal.propTypes = {
     userName: React.PropTypes.string,
+    profileSettings: React.PropTypes.object,
     userPassword: React.PropTypes.string
 };
