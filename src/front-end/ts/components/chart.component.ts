@@ -24,7 +24,7 @@ import * as _ from "lodash";
                     </select>
                 </div>
                 <canvas baseChart
-                [chartType]="chartType"
+                [chartType]="type"
                 [datasets]="chartData"
                 [options]="chartOptions"
                 [colors]="chartColors"
@@ -45,18 +45,16 @@ export class ChartComponent {
     public chartOptions: any;
     public chartColors: Array<any>;
     public chartLegend: boolean;
-    public chartType: string;
     public params: Array<any>;
     public selectedParam: string;
     public cities: Array<any>;
     public selectedCity: string;
-    @Input()
-    public weather: any;
+    @Input() weather: any;
+    @Input() type: string;
 
     constructor() {
         this.name = "Current Weather Chart";
         this.className = "current-chart";
-        this.chartType = "bar";
         this.chartData = [
             {data: [0], label: 'Service A'},
             {data: [0], label: 'Service B'},

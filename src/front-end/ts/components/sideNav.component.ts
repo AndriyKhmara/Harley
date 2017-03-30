@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { StatisticWeatherService } from '../services/statisticsWeather.service';
+import { Subscription } from 'rxjs/Subscription';
 import * as _ from "lodash";
-declare var $:any;
-import { DatepickerDemoComponent } from "./datepicker.component"
 
 @Component({
     selector: 'side-nav',
@@ -20,24 +20,27 @@ import { DatepickerDemoComponent } from "./datepicker.component"
                 <div class="content text-center">
                     <label>City:</label>
                     <div class="btn-group" role="group">
-                      <button type="button" class="btn btn-primary" (click)="setSelectedCity('Rivne')">Rivne</button>
-                      <button type="button" class="btn btn-primary" (click)="setSelectedCity('Kiev')">Kiev</button>
-                      <button type="button" class="btn btn-primary" (click)="setSelectedCity('Lutsk')">Luts'k</button>
+                      <button type="button" class="btn btn-primary" [ngClass]="{'active': city === 'Rivne'}" 
+                      (click)="setSelectedCity('Rivne')">Rivne</button>
+                      <button type="button" class="btn btn-primary" [ngClass]="{'active': city === 'Kiev'}" 
+                      (click)="setSelectedCity('Kiev')">Kiev</button>
+                      <button type="button" class="btn btn-primary" [ngClass]="{'active': city === 'Lutsk'}" 
+                      (click)="setSelectedCity('Lutsk')">Luts'k</button>
                     </div>
                     <hr/>
                     <label>Parameter:</label>
-                    <select [(ngModel)]="selectedParam" (change)="updateDataset()">
+                    <select [(ngModel)]="selectedParam">
                         <option *ngFor="let param of params" [ngValue]="param.value">
                             {{param.name}}
                         </option>
                     </select>
                     <hr/>
                     <label>Period from:</label>
-                    <input type="date" name="date-from" [(ngModel)]="dateFrom" (change)="updateDataset()"/>
+                    <input type="date" name="date-from" [(ngModel)]="dateFrom"/>
                     <label>Period to:</label>
-                    <input type="date" name="date-to" [(ngModel)]="dateTo" (change)="updateDataset()"/>
+                    <input type="date" name="date-to" [(ngModel)]="dateTo"/>
                     <hr/>  
-                    <button class="btn-success btn-lg">Show</button>
+                    <button class="btn-success btn-lg" (click)="getChartData()">Show</button>
                 </div>
             </div>            
         </div>`,
@@ -47,13 +50,16 @@ import { DatepickerDemoComponent } from "./datepicker.component"
 
 
 export class  SideNavComponent {
-    public status: string;
-    public dateFrom: string;
-    public dateTo: string;
-    public city: string;
-    public params: Array<any>;
-    public selectedParam: string;
-    constructor() {
+    private status: string;
+    private dateFrom: string;
+    private dateTo: string;
+    private city: string;
+    private params: Array<any>;
+    private selectedParam: string;
+    public data: any;
+    subscription: Subscription;
+
+    constructor(private statisticWeatherService: StatisticWeatherService) {
         this.status = 'side-nav';
         this.params = [
             {id: 1, name: "Temperature", value: "temp"},
@@ -64,24 +70,23 @@ export class  SideNavComponent {
         this.selectedParam = _.first(this.params).value;
     }
 
-    ngOnChanges() {
-
-    };
-
     public toggleSideNav(){
         this.status = this.status === 'side-nav' ? 'side-nav open' : 'side-nav';
     }
 
-    public updateDataset(){
-        console.log("dateFrom", this.dateFrom);
-        console.log("dateTo", this.dateTo);
-        console.log("selectedParam", this.selectedParam);
-        console.log('City', this.city);
+    public getChartData(){
+        let data = {
+            dateFrom: this.dateFrom,
+            dateTo: this.dateTo,
+            param: this.selectedParam,
+            city: this.city === "Lutsk" ? "Luts'k" : this.city
+        };
+        this.statisticWeatherService.setConfig(data);
+        this.toggleSideNav();
     }
 
-    public setSelectedCity(name){
+    public setSelectedCity(name:string){
         this.city = name;
-        console.log('City', this.city)
     }
 }
 

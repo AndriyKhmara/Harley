@@ -10,15 +10,10 @@ import { SideNavComponent } from '../components/sideNav.component';
 import { ContainerComponent } from '../components/container.component';
 import { MapComponent } from '../components/map.component';
 import { MapService } from "../services/map.service";
+import { StatisticWeatherService } from "../services/statisticsWeather.service";
 import { ContactFormComponent } from "../components/contactForm.component";
-import { DatepickerDemoComponent } from "../components/datepicker.component";
-import { DropdownComponent } from "../components/dropdown.component";
-import { RodiobuttonComponent } from "../components/radiobutton.component";
 import { ChartComponent } from "../components/chart.component";
 import { CurrentWeatherService } from "../services/currentWeather.service";
-import { DatepickerModule } from 'ng2-bootstrap';
-import { DropdownModule } from 'ng2-bootstrap';
-import { ButtonsModule } from 'ng2-bootstrap';
 
 
 
@@ -28,11 +23,7 @@ import { ButtonsModule } from 'ng2-bootstrap';
         HttpModule,
         FormsModule,
         ChartsModule,
-        SelectModule,
-        DatepickerModule.forRoot(),
-        DropdownModule.forRoot(),
-        ButtonsModule.forRoot()
-
+        SelectModule
     ],
     declarations: [
         AppComponent,
@@ -41,14 +32,12 @@ import { ButtonsModule } from 'ng2-bootstrap';
         ContainerComponent,
         MapComponent,
         ContactFormComponent,
-        ChartComponent,
-        DatepickerDemoComponent,
-        DropdownComponent,
-        RodiobuttonComponent
+        ChartComponent
     ],
     providers: [
         MapService,
-        CurrentWeatherService
+        CurrentWeatherService,
+        StatisticWeatherService
 
     ],
     bootstrap: [

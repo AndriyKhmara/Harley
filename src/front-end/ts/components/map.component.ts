@@ -9,8 +9,7 @@ import {MapService} from '../services/map.service';
 })
 
 export class MapComponent implements OnChanges {
-    @Input()
-    public weather: any;
+    @Input() weather: any;
     public mockWeather: any;
     //public map: any;
 
