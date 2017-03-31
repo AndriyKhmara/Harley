@@ -1,89 +1,32 @@
 @import "../variables";
 
-header{
-  position: fixed;
-  z-index: 1;
-  top:0;
-  width:100%;
-  padding:10px 15px;
-  height: 63px;
-  background: #1565c0;
-  .side-nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 100vh;
-    padding: 10px 0;
-    background: @secondaryBGcolor;
-    border-left:2px solid #000;
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    overflow: hidden;
-    transition: all 300ms;
-    z-index: 9999;
-    &.open {
-      width: 300px;
-      padding-left:15px;
-      padding-right:15px;
-    }
-    .close-btn {
-      float: left;
-      font-size: 20px;
-      color: #000;
-      padding: 15px;
-    }
-    h2 {
-      padding: 0 15px;
-    }
-    ul {
-      li {
-        list-style: none;
-      }
-    }
-    label {
-      width: 100%;
-    }
-    .form-control {
-      width: 90%!important;
-    }
-    .uib-datepicker-popup {
-      left: -9px!important;
-    }
-    .select-params {
-      label {
-        width: 100%;
-        padding-left: 10px;
-        font-weight: normal;
-      }
-    }
-    .city-select {
-      margin-left: 10px;
-    }
-  }
-  .params{
-    label{
-      display: block;
-      margin: 10px 0;
-      text-align: left;
-      &.radio{
-        padding-left: 25px;
-        font-weight: normal;
-      }
-    }
-  }
-
-  select[name="repeatSelect"]{
-    display: block;
-    width:100%;
-    padding:3px 6px;
-  }
-  label[for="repeatSelect"]{
-    display: block;
-    text-align: left;
-  }
+body {
+  overflow-x: hidden;
 }
 
+header {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100%;
+  padding: 10px 15px;
+  height: 63px;
+  background: #1a2732;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 300;
+  color: #ffae12;
+  float: left;
+  margin-top: 10px;
+  margin-left: 15px;
+  text-transform: uppercase;
+}
+
+h1 span{
+  color: #00a0df !important;
+}
 
 
 
