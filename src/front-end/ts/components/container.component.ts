@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { CurrentWeatherService } from '../services/currentWeather.service';
-import { StatisticWeatherService } from '../services/statisticsWeather.service';
+import {Component} from '@angular/core';
+import {CurrentWeatherService} from '../services/currentWeather.service';
+import {StatisticWeatherService} from '../services/statisticsWeather.service';
 
 import * as _ from "lodash";
 
@@ -8,7 +8,9 @@ import * as _ from "lodash";
     selector: 'container',
     template: `
         <div>
-            <button *ngIf="statisticChart" class="btn btn-primary" (click)="goHome()">Home</button>
+            <div class="paddings">
+                <button *ngIf="statisticChart" class="btn btn-success" (click)="goHome()">Home</button>
+            </div>
             <side-nav></side-nav>
             <map [ngClass]="{'hidden': statisticChart}" [weather]="weatherData"></map>
             <chart [ngClass]="{'hidden': statisticChart}" [type]="chartType" [weather]="weatherData"></chart>
@@ -21,14 +23,14 @@ import * as _ from "lodash";
                 [legend]="chartLegend"></canvas>
         </div>
     `,
-    styles:['canvas{ max-width: 800px; margin: 15px auto; height:auto; max-height: 380px;}']
+    styles: ['canvas{ max-width: 800px; margin: 15px auto; height:auto; max-height: 380px;}']
 })
-export class ContainerComponent{
+export class ContainerComponent {
     public weatherData: any;
     public chartType: string;
     public statisticChart = false;
-    public statChartType:string;
-    public chartData:Array<any>;
+    public statChartType: string;
+    public chartData: Array<any>;
     public chartLabels: Array<string>;
     public chartOptions: any;
     public chartColors: Array<any>;
@@ -38,7 +40,6 @@ export class ContainerComponent{
                 private statisticWeatherService: StatisticWeatherService) {
         this.chartType = "bar";
         this.statisticChart = false;
-        console.log(this.statisticChart);
         this.statChartType = "line";
         this.chartLabels = [''];
         this.chartData = [
@@ -62,59 +63,49 @@ export class ContainerComponent{
             });
     }
 
-    private renderStatisticsChart (service: StatisticWeatherService, config:any){
+    private renderStatisticsChart(service: StatisticWeatherService, config: any) {
         service.getWeatherData(config)
             .subscribe(
                 data => {
                     this.statisticChart = true;
                     this.chartData = this.setChartData(data, config);
-                    console.log("chartData",this.chartData);
+                    console.log("Chart", this.chartData)
                 },
                 error => console.log(error)
             );
 
     }
 
-    private setChartData (data:any, config:any){
+    private setChartData(data: any, config: any) {
         let result = {
-            darkSky:[{ data: [], label: 'Dark Sky'}],
-            wunderground: [{ data: [], label: 'Wunder Ground'}],
-            openWeather:[{ data: [], label: 'Open Weather'}]
+            darkSky: [{data: [], label: 'Dark Sky'}],
+            wunderground: [{data: [], label: 'Wunder Ground'}],
+            openWeather: [{data: [], label: 'Open Weather'}]
         };
         let labels = [];
-
-        _.each(data, function(item){
-            if (item.cityName === config.city){
-                result[item.sourceAPI][0].data.push(item.stat[config.param].avg);
-                if (!_.includes(labels, item.date)){
-                    labels.push(item.date);
-                }
+        _.each(data, function (item, i) {
+            result[item.sourceAPI][0].data.push(item.stat[config.param].avg);
+            let date = new Date(item.date * 1000);
+            let formatedDate = [
+                date.getDate() < 0 ? '0' + date.getDate() : date.getDate(), '/',
+                date.getMonth() + 1, '/',
+                date.getFullYear()
+            ].join('');
+            if (!_.includes(labels, formatedDate)) {
+                labels.push(formatedDate);
             }
         });
-        this.chartLabels = this.prepareDate(labels);
+        this.chartLabels = labels;
         return [result.darkSky[0], result.wunderground[0], result.openWeather[0]];
     }
 
-    private prepareDate(dates:any){
-        let result = [];
-        _.each(dates, function (date){
-            let formatedDate = new Date(date*1000);
-            result.push([
-                formatedDate.getDate() < 0 ? '0' + formatedDate.getDate() : formatedDate.getDate(), '/',
-                formatedDate.getMonth() + 1 , '/',
-                formatedDate.getFullYear()
-            ].join(''));
-        });
-        return result;
-    }
-
-    private getChartOptions(){
+    private getChartOptions() {
         return {
             responsive: true
         };
     }
 
-    private getChartColors(){
+    private getChartColors() {
         return [
             { // pink
                 backgroundColor: 'rgba(255,23,68,.2)',
@@ -143,7 +134,7 @@ export class ContainerComponent{
         ];
     }
 
-    public goHome(){
+    public goHome() {
         this.statisticChart = false;
     }
 }

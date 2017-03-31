@@ -6,9 +6,9 @@ import * as _ from "lodash";
     template: `
     <div class="{{className}} container">
         <div class="row">
-            <div *ngIf="!weather[0]" class="col-xs-12 text-center paddings">Loading... Please wait.</div>
+            <div *ngIf="!weather[0]" class="col-xs-12 text-center paddings"><img src="img/infinity.gif"/></div>
             <div *ngIf="weather[0]" class="col-xs-12">
-                <h2>{{name}}</h2>
+                <div class="title-block"><h2>{{name}}</h2></div>
                 <div class="text-center">
                     <label>select city</label>
                     <select [(ngModel)]="selectedCity" (change)="updateChart()">
@@ -55,7 +55,7 @@ export class ChartComponent {
     @Input() type: string;
 
     constructor() {
-        this.name = "Current Weather Chart";
+        this.name = "Current Weather Compare Service";
         this.className = "current-chart";
         this.chartData = [
             {data: [0], label: 'Service A'},
@@ -154,28 +154,28 @@ export class ChartComponent {
     private getChartColors() {
         return [
             { // pink
-                backgroundColor: '#ffbac7',
-                borderColor: '#ff1744',
-                pointBackgroundColor: '#ff1744',
+                backgroundColor: '#ff2d55',
+                borderColor: '#ff2d55',
+                pointBackgroundColor: '#ff2d55',
                 pointBorderColor: '#fff',
                 pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: '#ff1744'
-            },
-            { // green
-                backgroundColor: '#e1f0d1',
-                borderColor: '#9ccc65',
-                pointBackgroundColor: '#9ccc65',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: '#9ccc65'
+                pointHoverBorderColor: '#ff2d55'
             },
             { // blue
-                backgroundColor: '#bde0fb',
-                borderColor: '#2196f3',
-                pointBackgroundColor: '#2196f3',
+                backgroundColor: '#688a7e',
+                borderColor: '#688a7e',
+                pointBackgroundColor: '#688a7e',
                 pointBorderColor: '#fff',
                 pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: '#2196f3'
+                pointHoverBorderColor: '#688a7e'
+            },
+            { // green
+                backgroundColor: '#47A025',
+                borderColor: '#47A025',
+                pointBackgroundColor: '#47A025',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#47A025'
             }
         ];
     };
