@@ -1,3 +1,10 @@
+v.3.0.0
+=======
+Released: 31.03.2017 
+
+Introduces new platform for frontent ui - Angular v.2.0
+-----------------------------------------
+
 v.2.0.0
 =======
 Released: 11.03.2017 
