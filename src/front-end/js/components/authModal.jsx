@@ -12,16 +12,29 @@ export default class AuthModal extends React.Component {
             showModal: false
         }
     }
+
     render() {
         let close = () => this.setState({showModal: false});
         return (
             <div className="auth-wrapper">
-                <button
-                    className="btn btn-info"
-                    onClick={() => this.setState({showModal: true})}
-                >
-                    Log In / Register
-                </button>
+                {
+                    Auth.isUserAuthenticated() ?
+                        (
+                            <button
+                                className="btn btn-info"
+                                onClick={() => this.setState({showModal: true})}
+                            >
+                                Profile
+                            </button>
+                        ) : (
+                            <button
+                                className="btn btn-info"
+                                onClick={() => this.setState({showModal: true})}
+                            >
+                                Log In / Register
+                            </button>
+                        )
+                }
                 <Modal
                     aria-labelledby="contained-modal-title"
                     container={this}
@@ -45,21 +58,21 @@ export default class AuthModal extends React.Component {
                                             </div>
                                         </Tab>
                                     </Tabs>) : (
-                                <Tabs defaultActiveKey={1}
-                                    id="login-form"
-                                >
-                                    <Tab eventKey={1}
-                                        title="Log In"
+                                    <Tabs defaultActiveKey={1}
+                                        id="login-form"
                                     >
-                                        <LoginComponent/>
-                                    </Tab>
-                                    <Tab eventKey={2}
-                                        title="Register"
-                                    >
-                                        <RegisterComponent/>
-                                    </Tab>
-                                </Tabs>
-                            )
+                                        <Tab eventKey={1}
+                                            title="Log In"
+                                        >
+                                            <LoginComponent/>
+                                        </Tab>
+                                        <Tab eventKey={2}
+                                            title="Register"
+                                        >
+                                            <RegisterComponent/>
+                                        </Tab>
+                                    </Tabs>
+                                )
                         }
                     </Modal.Body>
                     <Modal.Footer>

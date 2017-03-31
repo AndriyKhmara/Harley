@@ -45,28 +45,41 @@ export default class Content extends React.Component {
 
     render () {
         return (
-            <div className="container">
+            <div className="container-fluid">
                 <div>
-                    <h2 style={{ fontSize: "16px", color: "green" }}>Hi {this.state.profileSettings.username}</h2>
-                    <div>
+                    <h2 style={{ fontSize: "16px", color: "green" }}>Hello {this.state.profileSettings.username}</h2>
+                    <p className="alert alert-info text-center">
+                        You can adjust the interface of charts by selecting colors.
+                    </p>
+                    <div className="col-xs-12">
+                        <label>Open Weather:</label>
                         <input
                             onChange={this.handleChangeChartColor1}
                             type="color"
                             value={this.state.profileSettings.chartColors[0]}
                         />
+                    </div>
+                    <br/>
+                    <div className="col-xs-12">
+                        <label>Wunderground:</label>
                         <input
                             onChange={this.handleChangeChartColor2}
                             type="color"
                             value={this.state.profileSettings.chartColors[1]}
                         />
+                    </div>
+                    <br/>
+                    <div className="col-xs-12">
+                        <label>Dark Sky:</label>
                         <input
                             onChange={this.handleChangeChartColor3}
                             type="color"
                             value={this.state.profileSettings.chartColors[2]}
                         />
                     </div>
+                    <br/>
                     <Button
-                        className="primary"
+                        className="btn-danger"
                         onClick={this.handleLogoutUser}
                     >
                         Log out
