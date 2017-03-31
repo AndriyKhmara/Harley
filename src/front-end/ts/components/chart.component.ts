@@ -27,6 +27,7 @@ import * as _ from "lodash";
                 [chartType]="type"
                 [datasets]="chartData"
                 [options]="chartOptions"
+                [labels]="chartLabels"
                 [colors]="chartColors"
                 [legend]="chartLegend"></canvas>
             </div>
@@ -48,6 +49,7 @@ export class ChartComponent {
     public params: Array<any>;
     public selectedParam: string;
     public cities: Array<any>;
+    public chartLabels = [''];
     public selectedCity: string;
     @Input() weather: any;
     @Input() type: string;
@@ -99,8 +101,9 @@ export class ChartComponent {
 
         _.each(weather, function(item){
             if (item.cityName === city){
+                let data = parseFloat(item[param]);
                 result.push({
-                    data: [item[param]],
+                    data: [data],
                     label: item.sourceAPI
                 })
             }

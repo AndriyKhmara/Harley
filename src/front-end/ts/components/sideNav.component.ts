@@ -36,12 +36,12 @@ import * as _ from "lodash";
                     </select>
                     <hr/>
                     <div class="form-group">
-                    <label>Period from:</label>
-                    <input type="date" class="form-control" name="date-from" [(ngModel)]="dateFrom"/>
+                        <label>Period from:</label>
+                        <input type="date" class="form-control" name="date-from" [(ngModel)]="dateFrom"/>
                     </div>
                     <div class="form-group">
-                    <label>Period to:</label>
-                    <input type="date" class="form-control" name="date-to" [(ngModel)]="dateTo"/>
+                        <label>Period to:</label>
+                        <input type="date" class="form-control" name="date-to" [(ngModel)]="dateTo"/>
                     </div>
                     <button class="btn-success btn-lg" (click)="getChartData()">Show</button>
                 </div>
@@ -71,6 +71,9 @@ export class  SideNavComponent {
             {id: 4, name: "Wind speed", value: "windSpeed"}
         ];
         this.selectedParam = _.first(this.params).value;
+        this.dateFrom = '2017-01-01';
+        this.dateTo = this.getCurrentDate();
+        this.city = 'Rivne';
     }
 
     public toggleSideNav(){
@@ -90,6 +93,15 @@ export class  SideNavComponent {
 
     public setSelectedCity(name:string){
         this.city = name;
+    }
+
+    private getCurrentDate(){
+        let currentDate = new Date();
+        return[
+            currentDate.getFullYear(),
+            (currentDate.getMonth()< 9) ? '0' + (currentDate.getMonth() + 1) : currentDate.getMonth() + 1,
+            (currentDate.getDate() < 10) ? '0' + currentDate.getDate() : currentDate.getDate()
+        ].join('-')
     }
 }
 

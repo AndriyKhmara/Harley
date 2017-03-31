@@ -1,4 +1,4 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { CurrentWeatherService } from '../services/currentWeather.service';
 import { StatisticWeatherService } from '../services/statisticsWeather.service';
 
@@ -23,7 +23,7 @@ import * as _ from "lodash";
     `,
     styles:['canvas{ max-width: 800px; margin: 15px auto; height:auto; max-height: 380px;}']
 })
-export class ContainerComponent implements OnChanges{
+export class ContainerComponent{
     public weatherData: any;
     public chartType: string;
     public statisticChart = false;
@@ -76,9 +76,6 @@ export class ContainerComponent implements OnChanges{
     }
 
     private setChartData (data:any, config:any){
-        console.log("-----setChartData------");
-        console.log("Response", data);
-        console.log("CONFIG: ", config);
         let result = {
             darkSky:[{ data: [], label: 'Dark Sky'}],
             wunderground: [{ data: [], label: 'Wunder Ground'}],
@@ -148,8 +145,5 @@ export class ContainerComponent implements OnChanges{
 
     public goHome(){
         this.statisticChart = false;
-    }
-    ngOnChanges() {
-        //console.log("Config", this.config);
     }
 }
